@@ -3,7 +3,7 @@
 int
 main()
 {
-	todosOsTestes();
+    testaTabelaStatus();
 
 	return 0;
 }

@@ -5,6 +5,7 @@
 #include <string>
 #include "Jogador.h"
 #include "Territorio.h"
+#include "TabelaStatus.h"
 
 class
 Controlador
@@ -14,11 +15,20 @@ Controlador
 
         ~Controlador();
 
-        unsigned short int
+        Jogador*
         novoJogador(std::string);
 
         Jogador*
+        getJogadorAtual();
+
+        Jogador*
         getProximoJogador();
+
+        Jogador*
+        getJogador(std::string);
+
+        std::list<Jogador*>
+        getListaJogadores();
 
         Territorio*
         novoTerritorio(std::string);
@@ -29,6 +39,9 @@ Controlador
         std::list<Territorio*>
         getListaTerritorios();
 
+        void
+        atualizaTabelaStatus();
+
     protected:
         std::list<Jogador*>
         jogadores;
@@ -38,6 +51,9 @@ Controlador
 
         std::map<std::string, Territorio*>
         territorios;
+
+        TabelaStatus
+        tabelaStatus;
 };
 
 #endif

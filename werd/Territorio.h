@@ -4,9 +4,12 @@
 #include <string>
 #include <map>
 
+class
+Jogador; /*   Referência cruzada entre classes   */
+#include "Jogador.h"
 
-// Adicionar exercitos
-class Territorio
+class
+Territorio
 {
     public:
         Territorio();
@@ -19,18 +22,46 @@ class Territorio
         void
         setNome(std::string);
 
+        unsigned short int
+        getExercitos();
+
+        void
+        setExercitos(unsigned short int);
+
         bool
         fazFronteiraCom(std::string);
 
         void
         adicionaFronteiraCom(Territorio*);
 
+        // @ TODO testar
+        Jogador*
+        getPossuidor();
+
+        // @ TODO testar
+        void
+        setPossuidor(Jogador*);
+
+        // @ TODO testar
+        bool
+        pertenceA(std::string);
+
     protected:
         std::string
         nome;
 
+        unsigned short int
+        exercitos;
+
         std::map<std::string, Territorio*>
         fronteiras;
+
+              /*   Referência cruzada entre classes   */
+        void* /*   Jogador*   */
+        possuidor;
+
+        Jogador*
+        castPossuidor();
 };
 
 #endif

@@ -2,7 +2,10 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <vector>
 #include "Controlador.h"
+#include "TabelaStatus.h"
+#include "TuplaStatus.h"
 
 
 void
@@ -56,9 +59,26 @@ testaTerritorios()
 }
 
 void
-testaExercitos()
+testaTabelaStatus()
 {
+    TabelaStatus
+    tabelaStatus;
 
+    tabelaStatus.setTupla("Computacao", "Bode",   10);
+    tabelaStatus.setTupla("Matematica", "Cido",   10);
+    tabelaStatus.setTupla("Fisica",     "Lucius", 10);
+
+    std::vector< TuplaStatus* >
+    tuplas = tabelaStatus.getTuplas();
+
+    std::cout << "(testaTabelaStatus) Iterando sobre as tuplas inseridas..." << std::endl;
+    for (std::vector<TuplaStatus*>::iterator it = tuplas.begin();
+         it != tuplas.end(); ++it)
+    {
+        std::cout << "(testaTabelaStatus) Territorio: " << (*it)->getTerritorio() << "..." << std::endl;
+        std::cout << "(testaTabelaStatus) Jogador:    " << (*it)->getJogador()    << "..." << std::endl;
+        std::cout << "(testaTabelaStatus) Exercitos:  " << (*it)->getExercitos()  << "..." << std::endl;
+    }
 }
 
 void
@@ -70,6 +90,7 @@ todosOsTestes()
     testaJogadores();
     testaTerritorios();
     testaExercitos();
+    testaTabelaStatus();
 
     std::cout << "(main) Finalizando o WERd..." << std::endl;
 }

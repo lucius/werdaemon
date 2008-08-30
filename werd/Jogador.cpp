@@ -6,22 +6,9 @@ Jogador::Jogador()
     std::cout << "(Jogador::Jogador) Inicializando novo jogador..." << std::endl;
 }
 
-
 Jogador::~Jogador()
 {
     std::cout << "(Jogador::~Jogador) Jogador '" << this->nick << "' desalocado..." << std::endl;
-}
-
-unsigned short int
-Jogador::getId()
-{
-    return this->id;
-}
-
-void
-Jogador::setId(unsigned short int _id)
-{
-    this->id = _id;
 }
 
 std::string
@@ -34,4 +21,42 @@ void
 Jogador::setNick(std::string _nick)
 {
     this->nick = _nick;
+}
+
+unsigned short int
+Jogador::getExercitos()
+{
+    return this->exercitos;
+}
+
+void
+Jogador::setExercitos(unsigned short int _exercitos)
+{
+    this->exercitos = _exercitos;
+}
+
+// @ TODO testar
+void
+Jogador::ganhaTerritorio(Territorio* _territorio)
+{
+//    Ganha o território se ainda não for possuidor do mesmo.
+    if (this->territorios[_territorio->getNome()] != 0)
+    {
+        this->territorios[_territorio->getNome()] = _territorio;
+        _territorio->setPossuidor(this);
+    }
+}
+
+// @ TODO testar
+void
+Jogador::perdeTerritorio(Territorio* _territorio)
+{
+    Territorio*
+    territorio = (Territorio*) this->territorios[_territorio->getNome()];
+
+//    Se realmente possuir o território, então apague ele da coleção.
+    if (0 == territorio->getPossuidor()->getNick().compare(this->getNick()))
+    {
+        this->territorios.erase(_territorio->getNome());
+    }
 }
