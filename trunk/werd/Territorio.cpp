@@ -4,7 +4,8 @@
 Territorio::Territorio()
 {
     this->exercitos = 1;
-    std::cout << "(Territorio::Territorio) Inicializando novo territorio com 1 exercito..." << std::endl;
+    this->possuidor = 0;
+    std::cout << "(Territorio::Territorio) Inicializando novo territorio com 1 exercito e nenhum possuidor..." << std::endl;
 }
 
 
@@ -42,48 +43,53 @@ Territorio::fazFronteiraCom(std::string _nomeTerritorio)
 {
     if (this->fronteiras.count(_nomeTerritorio) > 0)
     {
-        std::cout << "(Territorio::fazFronteiraCom) Territorio '" << this->nome << "' faz fronteira com '" << _nomeTerritorio << "'..." << std::endl;
+        std::cout << "(Territorio::fazFronteiraCom) '" << this->nome << "' faz fronteira com '" << _nomeTerritorio << "'..." << std::endl;
         return true;
     }
 
-    std::cout << "(Territorio::fazFronteiraCom) Territorio '" << this->nome << "' nao faz fronteira com '" << _nomeTerritorio << "'..." << std::endl;
+    std::cout << "(Territorio::fazFronteiraCom) '" << this->nome << "' nao faz fronteira com '" << _nomeTerritorio << "'..." << std::endl;
     return false;
 }
 
 void
 Territorio::adicionaFronteiraCom(Territorio* _territorio)
 {
-    std::cout << "(Territorio::adicionaFronteiraCom) Territorio '" << this->nome << "' esta fazendo fronteira com '" << _territorio->getNome() << "'..." << std::endl;
     fronteiras[_territorio->getNome()] = _territorio;
+    std::cout << "(Territorio::adicionaFronteiraCom) '" << this->nome << "' está fazendo fronteira com '" << _territorio->getNome() << "'..." << std::endl;
 }
 
-// @ TODO testar
 Jogador*
 Territorio::getPossuidor()
 {
+    std::cout << "(Territorio::getPossuidor) '" << this->getNome() << "' é possuído por '" << this->castPossuidor()->getNick() << "'..." << std::endl;
     return this->castPossuidor();
 }
 
-// @ TODO testar
 void
 Territorio::setPossuidor(Jogador* _jogador)
 {
-    if (0 != this->castPossuidor()->getNick().compare(_jogador->getNick()))
+    std::cout << "(Territorio::setPossuidor) Definindo '" << _jogador->getNick() << "' como possuidor de '" << this->getNome() << "..." << std::endl;
+
+    if (0 == this->castPossuidor())
+    {
+        this->possuidor = _jogador;
+        std::cout << "(Territorio::setPossuidor) '" << this->getNome() << "' não pertence a jogador algum. Atribuído a '" << _jogador->getNick() << "'..." << std::endl;
+    }
+    else if (this->castPossuidor()->getNick() != _jogador->getNick())
     {
         this->castPossuidor()->perdeTerritorio(this);
         this->possuidor = _jogador;
+        std::cout << "(Territorio::setPossuidor) '" << this->getNome() << "' atribuído a '" << _jogador->getNick() << "'..." << std::endl;
         _jogador->ganhaTerritorio(this);
     }
 }
 
-// @ TODO testar
 bool
-Territorio::pertenceA(std::string _jogador)
+Territorio::pertenceA(Jogador* _jogador)
 {
-    return (0 == this->castPossuidor()->getNick().compare(_jogador)) ? true : false;
+    return this->castPossuidor()->getNick() == _jogador->getNick();
 }
 
-// @ TODO testar
 Jogador*
 Territorio::castPossuidor()
 {

@@ -23,11 +23,9 @@ Jogador
         void
         setNick(std::string);
 
-        // @ TODO testar
         void
         ganhaTerritorio(Territorio*);
 
-        // @ TODO testar
         void
         perdeTerritorio(Territorio*);
 

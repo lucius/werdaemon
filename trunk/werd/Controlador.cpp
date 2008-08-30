@@ -73,7 +73,7 @@ Controlador::getJogador(std::string _nick)
     // Os Jogadores não são indexados por nome, pois serão no máximo 6.
     for (std::list<Jogador*>::iterator it = jogadores.begin(); it != jogadores.end(); ++it)
     {
-        if (0 == (*it)->getNick().compare(_nick))
+        if ((*it)->getNick() == _nick)
         {
             return *it;
         }

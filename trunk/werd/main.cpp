@@ -1,9 +1,10 @@
 #include "testes.h"
+#include <assert.h>
 
 int
 main()
 {
-    testaTabelaStatus();
+    testeRelacaoJogadoresTerritorios();
 
 	return 0;
 }
