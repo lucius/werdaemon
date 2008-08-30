@@ -44,6 +44,7 @@ testaTerritorios()
     std::cout << "(testaTerritorios) Adicionando fronteiras..." << std::endl;
     Computacao->adicionaFronteiraCom(Fisica);
     Computacao->adicionaFronteiraCom(Matematica);
+    controlador.getTerritorio("Computacao")->adicionaFronteiraCom(controlador.getTerritorio("Economia"));
 
     std::cout << "(testaTerritorios) Checando fronteiras..." << std::endl;
     Computacao->fazFronteiraCom("Fisica");
