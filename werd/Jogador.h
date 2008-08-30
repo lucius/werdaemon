@@ -23,12 +23,6 @@ Jogador
         void
         setNick(std::string);
 
-        unsigned short int
-        getExercitos();
-
-        void
-        setExercitos(unsigned short int);
-
         // @ TODO testar
         void
         ganhaTerritorio(Territorio*);
@@ -37,13 +31,13 @@ Jogador
         void
         perdeTerritorio(Territorio*);
 
+        // @ TODO testar
+        void
+        setExercitos(unsigned short int, Territorio*);
+
     protected:
         std::string
         nick;
-
-        unsigned short int
-        exercitos;
-
                                      /*   Referência cruzada entre classes   */
         std::map<std::string, void*> /*   std::map<std::string, Territorio*>   */
         territorios;
