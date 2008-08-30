@@ -23,18 +23,6 @@ Jogador::setNick(std::string _nick)
     this->nick = _nick;
 }
 
-unsigned short int
-Jogador::getExercitos()
-{
-    return this->exercitos;
-}
-
-void
-Jogador::setExercitos(unsigned short int _exercitos)
-{
-    this->exercitos = _exercitos;
-}
-
 // @ TODO testar
 void
 Jogador::ganhaTerritorio(Territorio* _territorio)
@@ -58,5 +46,19 @@ Jogador::perdeTerritorio(Territorio* _territorio)
     if (0 == territorio->getPossuidor()->getNick().compare(this->getNick()))
     {
         this->territorios.erase(_territorio->getNome());
+    }
+}
+
+// @ TODO testar
+void
+Jogador::setExercitos(unsigned short int _exercitos, Territorio* _territorio)
+{
+    Territorio*
+    territorio = (Territorio*) this->territorios[_territorio->getNome()];
+
+    //    Se realmente possuir o território, então aloque para ele a quantidade de exércitos.
+    if (0 == territorio->getPossuidor()->getNick().compare(this->getNick()))
+    {
+        territorio->setExercitos(_exercitos);
     }
 }

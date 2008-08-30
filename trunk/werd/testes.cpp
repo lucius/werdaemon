@@ -65,8 +65,8 @@ testaTabelaStatus()
     tabelaStatus;
 
     tabelaStatus.setTupla("Computacao", "Bode",   10);
-    tabelaStatus.setTupla("Matematica", "Cido",   10);
-    tabelaStatus.setTupla("Fisica",     "Lucius", 10);
+    tabelaStatus.setTupla("Matematica", "Cido",   15);
+    tabelaStatus.setTupla("Fisica",     "Lucius", 24);
 
     std::vector< TuplaStatus* >
     tuplas = tabelaStatus.getTuplas();
@@ -89,7 +89,6 @@ todosOsTestes()
 
     testaJogadores();
     testaTerritorios();
-    testaExercitos();
     testaTabelaStatus();
 
     std::cout << "(main) Finalizando o WERd..." << std::endl;
