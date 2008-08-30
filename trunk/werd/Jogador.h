@@ -2,9 +2,13 @@
 #define JOGADOR_H
 
 #include <string>
+#include <map>
 #include "Jogador.h"
 
-// adicionar exercitos
+class
+Territorio; /*   Referência cruzada entre classes   */
+#include "Territorio.h"
+
 class
 Jogador
 {
@@ -13,24 +17,36 @@ Jogador
 
         ~Jogador();
 
-        unsigned short int
-        getId();
-
-        void
-        setId(unsigned short int);
-
         std::string
         getNick();
 
         void
         setNick(std::string);
 
-    protected:
         unsigned short int
-        id;
+        getExercitos();
 
+        void
+        setExercitos(unsigned short int);
+
+        // @ TODO testar
+        void
+        ganhaTerritorio(Territorio*);
+
+        // @ TODO testar
+        void
+        perdeTerritorio(Territorio*);
+
+    protected:
         std::string
         nick;
+
+        unsigned short int
+        exercitos;
+
+                                     /*   Referência cruzada entre classes   */
+        std::map<std::string, void*> /*   std::map<std::string, Territorio*>   */
+        territorios;
 };
 
 #endif
