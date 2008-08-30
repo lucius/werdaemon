@@ -34,17 +34,14 @@ Territorio
         void
         adicionaFronteiraCom(Territorio*);
 
-        // @ TODO testar
         Jogador*
         getPossuidor();
 
-        // @ TODO testar
         void
         setPossuidor(Jogador*);
 
-        // @ TODO testar
         bool
-        pertenceA(std::string);
+        pertenceA(Jogador*);
 
     protected:
         std::string

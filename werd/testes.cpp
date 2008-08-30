@@ -1,5 +1,6 @@
 #include "testes.h"
 
+#include <assert.h>
 #include <iostream>
 #include <cstdlib>
 #include <vector>
@@ -82,14 +83,49 @@ testaTabelaStatus()
 }
 
 void
+testeRelacaoJogadoresTerritorios()
+{
+    Controlador
+    controlador;
+
+    Jogador
+    *Bode   = controlador.novoJogador("Bode"),
+    *Cido   = controlador.novoJogador("Cido"),
+    *Lucius = controlador.novoJogador("Lucius");
+
+    Territorio
+    *Computacao = controlador.novoTerritorio("Computacao"),
+    *Fisica     = controlador.novoTerritorio("Fisica"),
+    *Matematica = controlador.novoTerritorio("Matematica"),
+    *Economia   = controlador.novoTerritorio("Economia"),
+    *Biologia   = controlador.novoTerritorio("Biologia");
+
+    Bode->ganhaTerritorio(Computacao);
+    Cido->ganhaTerritorio(Fisica);
+    Lucius->ganhaTerritorio(Matematica);
+
+    Computacao->setPossuidor(Cido);
+    std::cout << "(testeRelacaoJogadoresTerritorios) " << Computacao->getNome() << " é possuído por: " << Computacao->getPossuidor()->getNick() << std::endl;
+
+    Economia->setPossuidor(Bode);
+    Biologia->setPossuidor(Cido);
+    Computacao->setPossuidor(Lucius);
+    std::cout << "(testeRelacaoJogadoresTerritorios) " << Economia->getNome()   << " é possuído por: " << Economia->getPossuidor()->getNick()   << std::endl;
+    std::cout << "(testeRelacaoJogadoresTerritorios) " << Biologia->getNome()   << " é possuído por: " << Biologia->getPossuidor()->getNick()   << std::endl;
+    std::cout << "(testeRelacaoJogadoresTerritorios) " << Computacao->getNome() << " é possuído por: " << Computacao->getPossuidor()->getNick() << std::endl;
+}
+
+
+void
 todosOsTestes()
 {
 
-    std::cout << "(main) Iniciando o WERd..." << std::endl;
+    std::cout << "(todosOsTestes) Iniciando o WERd..." << std::endl;
 
     testaJogadores();
     testaTerritorios();
     testaTabelaStatus();
+    testeRelacaoJogadoresTerritorios();
 
-    std::cout << "(main) Finalizando o WERd..." << std::endl;
+    std::cout << "(todosOsTestes) Finalizando o WERd..." << std::endl;
 }
