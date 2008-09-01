@@ -15,6 +15,9 @@ Wer::jogo()
 	unsigned short int
 	i;
 
+	std::list<Jogador*>
+	listaJogadores;
+
 	listaJogadores = controlador.getListaJogadores();
 
 	this->distribuirTerritorios();
@@ -122,23 +125,83 @@ Wer::fimDoJogo()
 {
 
 }
-/*
+
 void
-Wer::atacar( Territorio* _territorioOrigem, Territorio _territorioDestino )
+Wer::atacar( Territorio* _territorioOrigem, Territorio* _territorioDestino )
 {
+	std::list<unsigned short int>
+	dadosAtaque;
+
+	std::list<unsigned short int>
+	dadosDefesa;
+		
 	unsigned short int
 	exercitosOrigem;
 
 	unsigned short int
 	exercitosDestino;
 
-	exercitosOrigem = _territorioOrigem.getExercitos();
-	exercitosDestino = _territorioDestino.getExercitos();
+	exercitosOrigem = _territorioOrigem->getExercitos();
+	exercitosDestino = _territorioDestino->getExercitos();
+
+	if ( _territorioOrigem->pertenceA(controlador.getJogadorAtual())       &&
+		 _territorioOrigem->fazFronteiraCom(_territorioDestino->getNome()) &&
+		 _territorioOrigem->getExercitos() > 1                             &&
+		 !(_territorioDestino->pertenceA( controlador.getJogadorAtual() ))  )
+	{
+		if( exercitosOrigem >= 4 )
+		{
+			dadosAtaque.push_back( this->rolarDado() );
+		}
+		if( exercitosOrigem >=3 )
+		{
+			dadosAtaque.push_back( this->rolarDado() );
+		}
+		if( exercitosOrigem >=2 )
+		{
+			dadosAtaque.push_back( this->rolarDado() );
+		}if( exercitosOrigem >= 3 )
+		{
+			dadosDefesa.push_back( this->rolarDado() );
+		}
+		if( exercitosOrigem >=2 )
+		{
+			dadosDefesa.push_back( this->rolarDado() );
+		}
+		if( exercitosOrigem >=1 )
+		{
+			dadosDefesa.push_back( this->rolarDado() );
+		}
+		dadosAtaque.sort();
+		dadosDefesa.sort();
+		while( !dadosAtaque.empty() )
+		{
+			
+			
+		}
+	}
 }
 
 void
-Wer::moverExercitos()
+Wer::moverExercitos(Territorio* _territorioOrigem, Territorio* _territorioDestino, unsigned short int exercitosMovimentados)
 {
+	unsigned short int
+	exercitosOrigem = _territorioOrigem->getExercitos();
 
+	unsigned short int
+	exercitosDestino = _territorioDestino->getExercitos();
+
+	if ( _territorioOrigem->pertenceA( controlador.getJogadorAtual() )  &&
+		 _territorioDestino->pertenceA( controlador.getJogadorAtual() ) &&
+		 (exercitosMovimentados < exercitosOrigem) )
+	{
+		_territorioOrigem->setExercitos( exercitosOrigem-exercitosMovimentados );
+		_territorioDestino->setExercitos( exercitosDestino+exercitosMovimentados );
+	}
 }
-*/
+
+unsigned short int
+Wer::rolarDado()
+{
+	return 6;
+}
