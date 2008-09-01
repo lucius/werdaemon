@@ -4,7 +4,10 @@
 int
 main()
 {
+    testaJogadores();
+    testaTerritorios();
     testeRelacaoJogadoresTerritorios();
+    todosOsTestes();
 
 	return 0;
 }

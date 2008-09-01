@@ -3,6 +3,7 @@
 
 Jogador::Jogador()
 {
+    this->nick = "Jogador"; // Adicionar uma ID randômica em cada jogador.
     std::cout << "(Jogador::Jogador) Inicializando novo jogador..." << std::endl;
 }
 
@@ -41,7 +42,7 @@ Jogador::ganhaTerritorio(Territorio* _territorio)
 //            }
 //        Ganha o território se ainda não for possuidor do mesmo.
             this->territorios[_territorio->getNome()] = _territorio;
-            std::cout << "(Jogador::ganhaTerritorio) '" << this->getNick() << "' ganha '" << _territorio->getNome() << "'..." << std::endl;
+            std::cout << "(Jogador::ganhaTerritorio) '" << this->nick << "' ganha '" << ((Territorio*) this->territorios[_territorio->getNome()])->getNome() << "'..." << std::endl;
             _territorio->setPossuidor(this);
 //        }
     }

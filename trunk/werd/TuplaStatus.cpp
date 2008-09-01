@@ -1,8 +1,8 @@
 #include "TuplaStatus.h"
 
-TuplaStatus::TuplaStatus(std::string _territorio, std::string _jogador, unsigned short int _exercitos)
+TuplaStatus::TuplaStatus()
 {
-    this->setStatus(_territorio, _jogador, _exercitos);
+
 }
 
 TuplaStatus::~TuplaStatus()

@@ -1,4 +1,5 @@
 #include "Controlador.h"
+#include "TuplaStatus.h"
 #include <iostream>
 
 
@@ -66,15 +67,16 @@ Controlador::getProximoJogador()
     return *(this->jogador_atual);
 }
 
-// TODO testar
 Jogador*
 Controlador::getJogador(std::string _nick)
 {
     // Os Jogadores não são indexados por nome, pois serão no máximo 6.
-    for (std::list<Jogador*>::iterator it = jogadores.begin(); it != jogadores.end(); ++it)
+    std::cout << "(Controlador::getJogador) Buscando pelo jogador " << _nick << std::endl;
+    for (std::list<Jogador*>::iterator it = this->jogadores.begin(); it != this->jogadores.end(); ++it)
     {
         if ((*it)->getNick() == _nick)
         {
+            std::cout << "(Controlador::getJogador) '" << _nick << "' encontrado..." << std::endl;
             return *it;
         }
     }
@@ -82,7 +84,6 @@ Controlador::getJogador(std::string _nick)
     return 0;
 }
 
-// TODO testar
 std::list<Jogador*>
 Controlador::getListaJogadores()
 {
@@ -105,14 +106,12 @@ Controlador::novoTerritorio(std::string _nomeTerritorio)
     return novoTerritorio;
 }
 
-// TODO testar
 Territorio*
 Controlador::getTerritorio(std::string _territorio)
 {
 	return (this->territorios.find(_territorio))->second;
 }
 
-// TODO testar
 std::list<Territorio*>
 Controlador::getListaTerritorios()
 {
@@ -135,9 +134,52 @@ Controlador::atualizaTabelaStatus()
     std::list<Territorio*>
     listaTerritorios = this->getListaTerritorios();
 
+    std::vector<TuplaStatus*>
+    tuplas = this->tabelaStatus.getTuplas();
+
+    unsigned short int
+    i = 0;
+
+    std::cout << "(Controlador::atualizaTabelaStatus) Tabela de status antes da atualizacao..." << std::endl;
+    std::cout << "(Controlador::atualizaTabelaStatus) Território | Jogador | Exércitos..." << std::endl;
+
+    if (tuplas.empty())
+    {
+        std::cout << "(Controlador::atualizaTabelaStatus) Tabela vazia..." << std::endl;
+    }
+    else
+    {
+        for (std::vector<TuplaStatus*>::iterator it = tuplas.begin(); it != tuplas.end(); ++it)
+        {
+            std::cout << "(Controlador::atualizaTabelaStatus) [" << i++ << "]: "
+                      << (*it)->getTerritorio() << " | "
+                      << (*it)->getJogador()    << " | "
+                      << (*it)->getExercitos()  << std::endl;
+        }
+    }
+
     for (std::list<Territorio*>::iterator it = listaTerritorios.begin();
          it != listaTerritorios.end(); ++it)
     {
-        tabelaStatus.setTupla((*it)->getNome(), (*it)->getPossuidor()->getNick(), (*it)->getExercitos());
+        if (NULL != (*it)->getPossuidor())
+        {
+            this->tabelaStatus.setTupla((*it)->getNome(), (*it)->getPossuidor()->getNick(), (*it)->getExercitos());
+        }
+        else
+        {
+            this->tabelaStatus.setTupla((*it)->getNome(), "", (*it)->getExercitos());
+        }
+    }
+
+    i = 0;
+
+    std::cout << "(Controlador::atualizaTabelaStatus) Tabela de status depois da atualizacao..." << std::endl;
+    std::cout << "(Controlador::atualizaTabelaStatus) Território | Jogador | Exércitos..." << std::endl;
+    for (std::vector<TuplaStatus*>::iterator it = tuplas.begin(); it != tuplas.end(); ++it)
+    {
+        std::cout << "(Controlador::atualizaTabelaStatus) [" << i++ << "]: "
+                  << (*it)->getTerritorio() << " | "
+                  << (*it)->getJogador()    << " | "
+                  << (*it)->getExercitos()  << std::endl;
     }
 }

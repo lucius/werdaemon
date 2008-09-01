@@ -27,6 +27,21 @@ testaJogadores()
     {
         std::cout << "(testaJogadores) Jogador escolhido: '" << controlador.getProximoJogador()->getNick() << "'..." << std::endl;
     }
+
+    std::cout << "(testaJogadores) Obtendo jogadores pelo nick..." << std::endl;
+    std::cout << "(testaJogadores) '" << controlador.getJogador("Bode")->getNick()   << "'" << std::endl;
+    std::cout << "(testaJogadores) '" << controlador.getJogador("Cido")->getNick()   << "'" << std::endl;
+    std::cout << "(testaJogadores) '" << controlador.getJogador("Lucius")->getNick() << "'" << std::endl;
+
+    std::cout << "(testaJogadores) Obtendo lista de jogadores..." << std::endl;
+    std::list<Jogador*>
+    jogadores = controlador.getListaJogadores();
+
+    std::cout << "(testaJogadores) Iterando sobre a lista de jogadores que foi obtida..." << std::endl;
+    for (std::list<Jogador*>::iterator it = jogadores.begin(); it != jogadores.end(); ++it)
+    {
+        std::cout << "(testaJogadores) '" << (*it)->getNick() << "' encontrado..." << std::endl;
+    }
 }
 
 void
@@ -48,6 +63,8 @@ testaTerritorios()
     std::cout << "(testaTerritorios) Adicionando fronteiras..." << std::endl;
     Computacao->adicionaFronteiraCom(Fisica);
     Computacao->adicionaFronteiraCom(Matematica);
+
+    std::cout << "(testaTerritorios) Obtendo território por nome e adicionando fronteiras..." << std::endl;
     controlador.getTerritorio("Computacao")->adicionaFronteiraCom(controlador.getTerritorio("Economia"));
 
     std::cout << "(testaTerritorios) Checando fronteiras..." << std::endl;
@@ -57,6 +74,15 @@ testaTerritorios()
     Computacao->fazFronteiraCom("Biologia");
     Computacao->fazFronteiraCom("Piramide Egipcia");
 
+    std::cout << "(testaTerritorios) Obtendo lista com todos os territórios..." << std::endl;
+    std::list<Territorio*>
+    territorios = controlador.getListaTerritorios();
+
+    std::cout << "(testaTerritorios) Iterando sobre a lista com todos os territórios obtidos..." << std::endl;
+    for (std::list<Territorio*>::iterator it = territorios.begin(); it != territorios.end(); ++it)
+    {
+        std::cout << "(testaTerritorios) '" << (*it)->getNome() << "' encontrado..." << std::endl;
+    }
 }
 
 void
@@ -104,8 +130,14 @@ testeRelacaoJogadoresTerritorios()
     Cido->ganhaTerritorio(Fisica);
     Lucius->ganhaTerritorio(Matematica);
 
+    std::cout << "(testeRelacaoJogadoresTerritorios) Atualizando a tabela de status do jogo." << std::endl;
+    controlador.atualizaTabelaStatus();
+
     Computacao->setPossuidor(Cido);
     std::cout << "(testeRelacaoJogadoresTerritorios) " << Computacao->getNome() << " é possuído por: " << Computacao->getPossuidor()->getNick() << std::endl;
+
+    std::cout << "(testeRelacaoJogadoresTerritorios) Atualizando a tabela de status do jogo." << std::endl;
+    controlador.atualizaTabelaStatus();
 
     Economia->setPossuidor(Bode);
     Biologia->setPossuidor(Cido);
@@ -113,8 +145,10 @@ testeRelacaoJogadoresTerritorios()
     std::cout << "(testeRelacaoJogadoresTerritorios) " << Economia->getNome()   << " é possuído por: " << Economia->getPossuidor()->getNick()   << std::endl;
     std::cout << "(testeRelacaoJogadoresTerritorios) " << Biologia->getNome()   << " é possuído por: " << Biologia->getPossuidor()->getNick()   << std::endl;
     std::cout << "(testeRelacaoJogadoresTerritorios) " << Computacao->getNome() << " é possuído por: " << Computacao->getPossuidor()->getNick() << std::endl;
-}
 
+    std::cout << "(testeRelacaoJogadoresTerritorios) Atualizando a tabela de status do jogo." << std::endl;
+    controlador.atualizaTabelaStatus();
+}
 
 void
 todosOsTestes()
