@@ -34,20 +34,20 @@ class Wer
 		void
 		fimDoJogo();
 
-		//void
-		//atacar(Territorio*, Territorio*);
+		void
+		atacar(Territorio*, Territorio*);
 
-		//void
-		//moverExercitos(Territorio*, Territorio*, unsigned short int);
+		void
+		moverExercitos(Territorio*, Territorio*, unsigned short int);
+
+		unsigned short int
+		rolarDado();
 
 	protected:
 
 	private:
 		Controlador
 		controlador;
-
-		std::list<Jogador*>
-		listaJogadores;
 
 		unsigned short int
 		quantidadeExercitos;
