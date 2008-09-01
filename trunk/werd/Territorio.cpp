@@ -4,7 +4,7 @@
 Territorio::Territorio()
 {
     this->exercitos = 1;
-    this->possuidor = 0;
+    this->possuidor = NULL;
     std::cout << "(Territorio::Territorio) Inicializando novo territorio com 1 exercito e nenhum possuidor..." << std::endl;
 }
 
