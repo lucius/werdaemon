@@ -13,7 +13,10 @@ void
 testaTerritorios();
 
 void
-testaExercitos();
+testaTabelaStatus();
+
+void
+testeRelacaoJogadoresTerritorios();
 
 void
 todosOsTestes();

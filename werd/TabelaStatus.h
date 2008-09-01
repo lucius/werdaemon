@@ -17,7 +17,7 @@ TabelaStatus
         virtual
         ~TabelaStatus();
 
-        std::vector< TuplaStatus* >
+        std::vector<TuplaStatus*>
         getTuplas();
 
         void

@@ -1,6 +1,6 @@
 #include "TabelaStatus.h"
 
-#include <assert.h>
+#include <iostream>
 
 TabelaStatus::TabelaStatus()
 {
@@ -33,10 +33,18 @@ TabelaStatus::setTupla(std::string _territorio, std::string _jogador, unsigned s
     // Ou seja, a tupla ainda não foi inicializada.
     if (0 == this->tabela[_territorio])
     {
-        this->tabela[_territorio] = new TuplaStatus(_territorio, _jogador, _exercitos);
+        std::cout << "(TabelaStatus::setTupla) Uma nova tupla deverá ser inicializada..." << std::endl;
+
+        TuplaStatus*
+        novaTupla = new TuplaStatus();
+
+        novaTupla->setStatus(_territorio, _jogador, _exercitos);
+
+        this->tabela[_territorio] = novaTupla;
     }
     else
     {
+        std::cout << "(TabelaStatus::setTupla) Atualizando uma tupla existente..." << std::endl;
         this->tabela[_territorio]->setStatus(_territorio, _jogador, _exercitos);
     }
 }

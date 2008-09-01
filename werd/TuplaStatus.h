@@ -6,8 +6,7 @@
 class TuplaStatus
 {
     public:
-        explicit
-        TuplaStatus(std::string, std::string, unsigned short int);
+        TuplaStatus();
 
         virtual
         ~TuplaStatus();
