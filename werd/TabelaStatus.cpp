@@ -30,8 +30,7 @@ TabelaStatus::getTuplas()
 void
 TabelaStatus::setTupla(std::string _territorio, std::string _jogador, unsigned short int _exercitos)
 {
-    // Ou seja, a tupla ainda não foi inicializada.
-    if (0 == this->tabela[_territorio])
+    if (0 == this->tabela.count(_territorio))
     {
         std::cout << "(TabelaStatus::setTupla) Uma nova tupla deverá ser inicializada..." << std::endl;
 

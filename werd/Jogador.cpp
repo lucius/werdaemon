@@ -27,24 +27,23 @@ Jogador::setNick(std::string _nick)
 void
 Jogador::ganhaTerritorio(Territorio* _territorio)
 {
-    if (0 != _territorio)
+    if (NULL != _territorio)
     {
         std::cout << "(Jogador::ganhaTerritorio) '" << _territorio->getNome() << "' é um território válido..." << std::endl;
 
-// TODO BODACIOUS CANSADO! CORRIGIR O PONTEIRO NULO DA MESMA MANEIRA
-// COMO FOI FEITO EM TERRITORIO NO CAST!
-//        Se outro possuir este territorio, este irá perdê-lo.
-//        if (0 != _territorio->getPossuidor())
-//        {
-//            if (_territorio->getPossuidor()->getNick() != this->nick)
-//            {
-//                _territorio->getPossuidor()->perdeTerritorio(_territorio);
-//            }
-//        Ganha o território se ainda não for possuidor do mesmo.
+//      Se outro possuir este territorio, este irá perdê-lo.
+        if (NULL != _territorio->getPossuidor())
+        {
+            if (_territorio->getPossuidor() != this)
+            {
+                _territorio->getPossuidor()->perdeTerritorio(_territorio);
+            }
+
+//          Ganha o território se ainda não for possuidor do mesmo.
             this->territorios[_territorio->getNome()] = _territorio;
             std::cout << "(Jogador::ganhaTerritorio) '" << this->nick << "' ganha '" << ((Territorio*) this->territorios[_territorio->getNome()])->getNome() << "'..." << std::endl;
             _territorio->setPossuidor(this);
-//        }
+        }
     }
 }
 
@@ -55,7 +54,7 @@ Jogador::perdeTerritorio(Territorio* _territorio)
     territorio = (Territorio*) this->territorios[_territorio->getNome()];
 
 //    Se realmente possuir o território, então apague ele da coleção.
-    if (0 != territorio && 0 != territorio->getPossuidor()
+    if (NULL != territorio && NULL != territorio->getPossuidor()
         &&
         territorio->getPossuidor()->getNick() == this->nick)
     {
@@ -64,7 +63,6 @@ Jogador::perdeTerritorio(Territorio* _territorio)
     }
 }
 
-// @ TODO testar
 void
 Jogador::setExercitos(unsigned short int _exercitos, Territorio* _territorio)
 {

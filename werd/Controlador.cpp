@@ -127,7 +127,6 @@ Controlador::getListaTerritorios()
     return listaTerritorios;
 }
 
-// TODO testar
 void
 Controlador::atualizaTabelaStatus()
 {
