@@ -4,6 +4,7 @@
 #include "Controlador.h"
 #include "Territorio.h"
 #include "Jogador.h"
+#include "Dado.h"
 
 class Wer
 {
@@ -48,6 +49,9 @@ class Wer
 	private:
 		Controlador
 		controlador;
+
+		Dado
+		dado;
 
 		unsigned short int
 		quantidadeExercitos;
