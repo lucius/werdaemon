@@ -3,10 +3,10 @@
 #include <algorithm>
 #include <vector>
 
+
 Wer::Wer()
 {
-	Controlador
-	controlador;
+
 }
 
 void
@@ -141,6 +141,12 @@ Wer::atacar( Territorio* _territorioOrigem, Territorio* _territorioDestino )
 	unsigned short int
 	exercitosDestino;
 
+	unsigned short int
+	ataque;
+
+	unsigned short int
+	defesa;
+
 	exercitosOrigem = _territorioOrigem->getExercitos();
 	exercitosDestino = _territorioDestino->getExercitos();
 
@@ -176,9 +182,35 @@ Wer::atacar( Territorio* _territorioOrigem, Territorio* _territorioDestino )
 		dadosDefesa.sort();
 		while( !dadosAtaque.empty() )
 		{
-			
-			
+			if( !dadosDefesa.empty() )
+			{
+				ataque = *(dadosAtaque.rbegin());
+				dadosAtaque.pop_back();
+				defesa = *(dadosDefesa.rbegin());
+				dadosDefesa.pop_back();
+
+				if( ataque > defesa )
+				{
+					if( exercitosDestino == 1 )
+					{
+						--exercitosOrigem;
+						_territorioOrigem->setPossuidor( controlador.getJogadorAtual() );
+					}
+					else
+					{
+						--exercitosDestino;
+					}
+				}
+				else
+				{
+					--exercitosDestino;
+				}
+			}
 		}
+
+		_territorioOrigem->setExercitos( exercitosOrigem );
+		_territorioDestino->setExercitos( exercitosDestino );
+
 	}
 }
 
@@ -191,8 +223,9 @@ Wer::moverExercitos(Territorio* _territorioOrigem, Territorio* _territorioDestin
 	unsigned short int
 	exercitosDestino = _territorioDestino->getExercitos();
 
-	if ( _territorioOrigem->pertenceA( controlador.getJogadorAtual() )  &&
-		 _territorioDestino->pertenceA( controlador.getJogadorAtual() ) &&
+	if ( _territorioOrigem->fazFronteiraCom(_territorioDestino->getNome()) &&
+		 _territorioOrigem->pertenceA( controlador.getJogadorAtual() )     &&
+		 _territorioDestino->pertenceA( controlador.getJogadorAtual() )    &&
 		 (exercitosMovimentados < exercitosOrigem) )
 	{
 		_territorioOrigem->setExercitos( exercitosOrigem-exercitosMovimentados );
@@ -203,5 +236,5 @@ Wer::moverExercitos(Territorio* _territorioOrigem, Territorio* _territorioDestin
 unsigned short int
 Wer::rolarDado()
 {
-	return 6;
+	return dado.embaralha();
 }
