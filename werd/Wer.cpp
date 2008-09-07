@@ -97,7 +97,13 @@ Wer::atacar( Territorio* _territorioOrigem, Territorio* _territorioDestino )
     exercitosOrigem = _territorioOrigem->getExercitos();
     exercitosDestino = _territorioDestino->getExercitos();
 
-    std::cout << "(Wer::atacar) Territorio de Origem: " << std::cout << _territorioOrigem->getNome() << std::endl;
+    std::cout << "(Wer::atacar) Territorio de Origem: " << _territorioOrigem->getNome() << std::endl;
+    std::cout << "(Wer::atacar) Territorio de Destino: " << _territorioDestino->getNome() << std::endl;
+    if( _territorioOrigem->pertenceA(controlador.getJogadorAtual()) )
+    {
+        std::cout << "(Wer::atacar) Territorio de origem pertence à " << (controlador.getJogadorAtual())->getNick() << "." << std::endl;
+    }
+    std::cout << "(Wer::atacar) Quantidade de exercitos no territorio de origem: " << _territorioOrigem->getExercitos() << std::endl;
     if ( _territorioOrigem->pertenceA(controlador.getJogadorAtual())       &&
          _territorioOrigem->fazFronteiraCom(_territorioDestino->getNome()) &&
          _territorioOrigem->getExercitos() > 1                             &&
@@ -184,8 +190,8 @@ Wer::contagemExercitos()
 			this->quantidadeExercitos++;
 		}
 	}
-	std::cout << "(Wer::contagemExercitos) " << std::cout << quantidadeExercitos;
-	std::cout << " territorios pertencentes à: " << std::cout << controlador.getJogadorAtual()->getNick() << std::endl;
+	std::cout << "(Wer::contagemExercitos) " << quantidadeExercitos;
+	std::cout << " territorios pertencentes à: " << controlador.getJogadorAtual()->getNick() << std::endl;
 
 	this->quantidadeExercitos = this->quantidadeExercitos/2;
 
@@ -193,7 +199,7 @@ Wer::contagemExercitos()
 	{
 	    this->quantidadeExercitos = 3;
 	}
-	std::cout << "(Wer::contagemExercitos) " << std::cout << this->quantidadeExercitos;
+	std::cout << "(Wer::contagemExercitos) " << this->quantidadeExercitos;
 	std::cout << " exércitos disponiveis para distribuição..." << std::endl;
 }
 
@@ -223,7 +229,7 @@ Wer::distribuirTerritorios()
         vetorTerritorios.push_back( _territorio );
         listaTerritorios.pop_front();
 
-        std::cout << "(Wer::distribuiTerritorios) Seleciona o territorio: " << std::cout << _territorio->getNome() << std::endl;
+        std::cout << "(Wer::distribuiTerritorios) Seleciona o territorio: " << _territorio->getNome() << std::endl;
     }
 
     std::cout << "(Wer::distribuiTerritorios) Randomiza os territorios para serem distribuidos..." << std::endl;
@@ -233,7 +239,7 @@ Wer::distribuirTerritorios()
     while( i < vetorTerritorios.size() )
     {
         _jogador = controlador.getJogadorAtual();
-        std::cout << "(Wer::distribuirTerritorios) Jogador atual: " << std::cout << _jogador->getNick() << std::endl;
+        std::cout << "(Wer::distribuirTerritorios) Jogador atual: " << _jogador->getNick() << std::endl;
 
         _territorio = vetorTerritorios[i];
         i++;
@@ -285,7 +291,6 @@ Wer::jogo()
 
     this->fimDoJogo();
     */
-
 }
 
 void
@@ -357,4 +362,123 @@ Wer::turno()
     //this->setExercitosNoMapa();
     //this->atacar( controlador.getTerritorioOrigem(), controlador.getTerritorioDestino() );
     //this->moverExercitos( controlador.getTerritorioOrigem(), controlador.getTerritorioDestino(), controlador.getExercitosMovidos() );
+}
+
+void
+Wer::teste()
+{
+    this->jogo();
+
+    std::cout << "(Wer::teste) Testar fornteiras:" << std::endl;
+    (controlador.getTerritorio("A"))->fazFronteiraCom("A");
+    (controlador.getTerritorio("A"))->fazFronteiraCom("B");
+    (controlador.getTerritorio("A"))->fazFronteiraCom("C");
+    (controlador.getTerritorio("A"))->fazFronteiraCom("D");
+    (controlador.getTerritorio("A"))->fazFronteiraCom("E");
+    (controlador.getTerritorio("A"))->fazFronteiraCom("F");
+    (controlador.getTerritorio("A"))->fazFronteiraCom("G");
+    (controlador.getTerritorio("A"))->fazFronteiraCom("H");
+    (controlador.getTerritorio("A"))->fazFronteiraCom("I");
+    (controlador.getTerritorio("A"))->fazFronteiraCom("J");
+    (controlador.getTerritorio("B"))->fazFronteiraCom("A");
+    (controlador.getTerritorio("B"))->fazFronteiraCom("B");
+    (controlador.getTerritorio("B"))->fazFronteiraCom("C");
+    (controlador.getTerritorio("B"))->fazFronteiraCom("D");
+    (controlador.getTerritorio("B"))->fazFronteiraCom("E");
+    (controlador.getTerritorio("B"))->fazFronteiraCom("F");
+    (controlador.getTerritorio("B"))->fazFronteiraCom("G");
+    (controlador.getTerritorio("B"))->fazFronteiraCom("H");
+    (controlador.getTerritorio("B"))->fazFronteiraCom("I");
+    (controlador.getTerritorio("B"))->fazFronteiraCom("J");
+    (controlador.getTerritorio("C"))->fazFronteiraCom("A");
+    (controlador.getTerritorio("C"))->fazFronteiraCom("B");
+    (controlador.getTerritorio("C"))->fazFronteiraCom("C");
+    (controlador.getTerritorio("C"))->fazFronteiraCom("D");
+    (controlador.getTerritorio("C"))->fazFronteiraCom("E");
+    (controlador.getTerritorio("C"))->fazFronteiraCom("F");
+    (controlador.getTerritorio("C"))->fazFronteiraCom("G");
+    (controlador.getTerritorio("C"))->fazFronteiraCom("H");
+    (controlador.getTerritorio("C"))->fazFronteiraCom("I");
+    (controlador.getTerritorio("C"))->fazFronteiraCom("J");
+    (controlador.getTerritorio("D"))->fazFronteiraCom("A");
+    (controlador.getTerritorio("D"))->fazFronteiraCom("B");
+    (controlador.getTerritorio("D"))->fazFronteiraCom("C");
+    (controlador.getTerritorio("D"))->fazFronteiraCom("D");
+    (controlador.getTerritorio("D"))->fazFronteiraCom("E");
+    (controlador.getTerritorio("D"))->fazFronteiraCom("F");
+    (controlador.getTerritorio("D"))->fazFronteiraCom("G");
+    (controlador.getTerritorio("D"))->fazFronteiraCom("H");
+    (controlador.getTerritorio("D"))->fazFronteiraCom("I");
+    (controlador.getTerritorio("D"))->fazFronteiraCom("J");
+    (controlador.getTerritorio("E"))->fazFronteiraCom("A");
+    (controlador.getTerritorio("E"))->fazFronteiraCom("B");
+    (controlador.getTerritorio("E"))->fazFronteiraCom("C");
+    (controlador.getTerritorio("E"))->fazFronteiraCom("D");
+    (controlador.getTerritorio("E"))->fazFronteiraCom("E");
+    (controlador.getTerritorio("E"))->fazFronteiraCom("F");
+    (controlador.getTerritorio("E"))->fazFronteiraCom("G");
+    (controlador.getTerritorio("E"))->fazFronteiraCom("H");
+    (controlador.getTerritorio("E"))->fazFronteiraCom("I");
+    (controlador.getTerritorio("E"))->fazFronteiraCom("J");
+    (controlador.getTerritorio("F"))->fazFronteiraCom("A");
+    (controlador.getTerritorio("F"))->fazFronteiraCom("B");
+    (controlador.getTerritorio("F"))->fazFronteiraCom("C");
+    (controlador.getTerritorio("F"))->fazFronteiraCom("D");
+    (controlador.getTerritorio("F"))->fazFronteiraCom("E");
+    (controlador.getTerritorio("F"))->fazFronteiraCom("F");
+    (controlador.getTerritorio("F"))->fazFronteiraCom("G");
+    (controlador.getTerritorio("F"))->fazFronteiraCom("H");
+    (controlador.getTerritorio("F"))->fazFronteiraCom("I");
+    (controlador.getTerritorio("F"))->fazFronteiraCom("J");
+    (controlador.getTerritorio("G"))->fazFronteiraCom("A");
+    (controlador.getTerritorio("G"))->fazFronteiraCom("B");
+    (controlador.getTerritorio("G"))->fazFronteiraCom("C");
+    (controlador.getTerritorio("G"))->fazFronteiraCom("D");
+    (controlador.getTerritorio("G"))->fazFronteiraCom("E");
+    (controlador.getTerritorio("G"))->fazFronteiraCom("F");
+    (controlador.getTerritorio("G"))->fazFronteiraCom("G");
+    (controlador.getTerritorio("G"))->fazFronteiraCom("H");
+    (controlador.getTerritorio("G"))->fazFronteiraCom("I");
+    (controlador.getTerritorio("G"))->fazFronteiraCom("J");
+    (controlador.getTerritorio("H"))->fazFronteiraCom("A");
+    (controlador.getTerritorio("H"))->fazFronteiraCom("B");
+    (controlador.getTerritorio("H"))->fazFronteiraCom("C");
+    (controlador.getTerritorio("H"))->fazFronteiraCom("D");
+    (controlador.getTerritorio("H"))->fazFronteiraCom("E");
+    (controlador.getTerritorio("H"))->fazFronteiraCom("F");
+    (controlador.getTerritorio("H"))->fazFronteiraCom("G");
+    (controlador.getTerritorio("H"))->fazFronteiraCom("H");
+    (controlador.getTerritorio("H"))->fazFronteiraCom("I");
+    (controlador.getTerritorio("H"))->fazFronteiraCom("J");
+    (controlador.getTerritorio("I"))->fazFronteiraCom("A");
+    (controlador.getTerritorio("I"))->fazFronteiraCom("B");
+    (controlador.getTerritorio("I"))->fazFronteiraCom("C");
+    (controlador.getTerritorio("I"))->fazFronteiraCom("D");
+    (controlador.getTerritorio("I"))->fazFronteiraCom("E");
+    (controlador.getTerritorio("I"))->fazFronteiraCom("F");
+    (controlador.getTerritorio("I"))->fazFronteiraCom("G");
+    (controlador.getTerritorio("I"))->fazFronteiraCom("H");
+    (controlador.getTerritorio("I"))->fazFronteiraCom("I");
+    (controlador.getTerritorio("I"))->fazFronteiraCom("J");
+    (controlador.getTerritorio("J"))->fazFronteiraCom("A");
+    (controlador.getTerritorio("J"))->fazFronteiraCom("B");
+    (controlador.getTerritorio("J"))->fazFronteiraCom("C");
+    (controlador.getTerritorio("J"))->fazFronteiraCom("D");
+    (controlador.getTerritorio("J"))->fazFronteiraCom("E");
+    (controlador.getTerritorio("J"))->fazFronteiraCom("F");
+    (controlador.getTerritorio("J"))->fazFronteiraCom("G");
+    (controlador.getTerritorio("J"))->fazFronteiraCom("H");
+    (controlador.getTerritorio("J"))->fazFronteiraCom("I");
+    (controlador.getTerritorio("J"))->fazFronteiraCom("J");
+    std::cout << "(Wer::teste) Termino teste fronteiras... )" << std::endl;
+
+    std::cout << "(Wer::teste) Quantidade de exercitos em A: " << (controlador.getTerritorio("A"))->getExercitos() << std::endl;
+    (controlador.getTerritorio("A"))->setExercitos( 5 );
+    std::cout << "(Wer::teste) Quantidade de exercitos em A: " << (controlador.getTerritorio("A"))->getExercitos() << std::endl;
+    std::cout << "(Wer::teste) Quantidade de exercitos em E: " << (controlador.getTerritorio("E"))->getExercitos() << std::endl;
+    std::cout << "(Wer::teste) Atacar do Territorio A no Territorio E... " << std::endl;
+    this->atacar( controlador.getTerritorio("A"), controlador.getTerritorio("E") );
+    std::cout << "(Wer::teste) Quantidade de exercitos em A: " << (controlador.getTerritorio("A"))->getExercitos() << std::endl;
+    std::cout << "(Wer::teste) Quantidade de exercitos em E: " << (controlador.getTerritorio("E"))->getExercitos() << std::endl;
+
 }

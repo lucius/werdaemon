@@ -45,6 +45,9 @@ class Wer
         void
         turno();
 
+        void
+        teste();
+
 	protected:
 
 	private:
