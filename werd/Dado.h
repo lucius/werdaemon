@@ -18,7 +18,6 @@ class Dado
 	protected:
 		std::vector<unsigned short int>
 		dado;
-
 };
 
 #endif /*DADO_H_*/
