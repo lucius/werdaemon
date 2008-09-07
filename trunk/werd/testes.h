@@ -21,6 +21,9 @@ testeRelacaoJogadoresTerritorios();
 void
 todosOsTestes();
 
+void
+testaJogo();
+
 #include "testes.cpp"
 
 #endif
