@@ -1,8 +1,9 @@
+#include "Dado.h"
+
 #include <algorithm>
 #include <iostream>
 #include <vector>
 
-#include "Dado.h"
 
 Dado::Dado()
 {

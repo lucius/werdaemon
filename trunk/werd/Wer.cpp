@@ -1,6 +1,7 @@
 #include "Wer.h"
-#include <list>
+
 #include <algorithm>
+#include <list>
 #include <vector>
 
 
@@ -10,68 +11,92 @@ Wer::Wer()
 }
 
 void
-Wer::jogo()
+Wer::atacar( Territorio* _territorioOrigem, Territorio* _territorioDestino )
 {
-	unsigned short int
-	i;
+    unsigned short int
+    ataque;
 
-	std::list<Jogador*>
-	listaJogadores;
+    unsigned short int
+    defesa;
 
-	listaJogadores = controlador.getListaJogadores();
+    std::list<unsigned short int>
+    dadosAtaque;
 
-	this->distribuirTerritorios();
+    std::list<unsigned short int>
+    dadosDefesa;
 
-	for( i=1; i<=listaJogadores.size(); i++ )
-	{
-		this->contagemExercitos();
-		// @ TODO xxxxxxxxxxx
-		//this->setExercitosNoMapa();
-		controlador.getProximoJogador();
-	}
+    unsigned short int
+    exercitosDestino;
 
-	while( !this->objetivoCumprido() )
-	{
-		this->turno();
-		controlador.getProximoJogador();
-	}
+    unsigned short int
+    exercitosOrigem;
 
-	this->fimDoJogo();
 
-}
+    exercitosOrigem = _territorioOrigem->getExercitos();
+    exercitosDestino = _territorioDestino->getExercitos();
 
-void
-Wer::distribuirTerritorios()
-{
-	unsigned short int
-	i;
+    if ( _territorioOrigem->pertenceA(controlador.getJogadorAtual())       &&
+         _territorioOrigem->fazFronteiraCom(_territorioDestino->getNome()) &&
+         _territorioOrigem->getExercitos() > 1                             &&
+         !(_territorioDestino->pertenceA( controlador.getJogadorAtual() ))  )
+    {
+        if( exercitosOrigem >= 4 )
+        {
+            dadosAtaque.push_back( this->rolarDado() );
+        }
+        if( exercitosOrigem >=3 )
+        {
+            dadosAtaque.push_back( this->rolarDado() );
+        }
+        if( exercitosOrigem >=2 )
+        {
+            dadosAtaque.push_back( this->rolarDado() );
+        }if( exercitosOrigem >= 3 )
+        {
+            dadosDefesa.push_back( this->rolarDado() );
+        }
+        if( exercitosOrigem >=2 )
+        {
+            dadosDefesa.push_back( this->rolarDado() );
+        }
+        if( exercitosOrigem >=1 )
+        {
+            dadosDefesa.push_back( this->rolarDado() );
+        }
+        dadosAtaque.sort();
+        dadosDefesa.sort();
+        while( !dadosAtaque.empty() )
+        {
+            if( !dadosDefesa.empty() )
+            {
+                ataque = *(dadosAtaque.rbegin());
+                dadosAtaque.pop_back();
+                defesa = *(dadosDefesa.rbegin());
+                dadosDefesa.pop_back();
 
-	std::list<Territorio*>
-	listaTerritorios;
+                if( ataque > defesa )
+                {
+                    if( exercitosDestino == 1 )
+                    {
+                        --exercitosOrigem;
+                        _territorioOrigem->setPossuidor( controlador.getJogadorAtual() );
+                    }
+                    else
+                    {
+                        --exercitosDestino;
+                    }
+                }
+                else
+                {
+                    --exercitosDestino;
+                }
+            }
+        }
 
-	std::vector<Territorio*>
-	vectorTerritorios;
+        _territorioOrigem->setExercitos( exercitosOrigem );
+        _territorioDestino->setExercitos( exercitosDestino );
 
-	Territorio*
-	_territorio;
-
-	listaTerritorios = controlador.getListaTerritorios();
-
-	while ( !listaTerritorios.empty() )
-	{
-		_territorio = *(listaTerritorios.begin());
-		vectorTerritorios.push_back( _territorio );
-		listaTerritorios.pop_front();
-	}
-	std::random_shuffle( vectorTerritorios.begin(), vectorTerritorios.end() );
-
-	while( !*(vectorTerritorios.end()) )
-	{
-		_territorio = vectorTerritorios[i];
-		i++;
-		_territorio->setPossuidor( controlador.getJogadorAtual() );
-		controlador.getProximoJogador();
-	}
+    }
 }
 
 void
@@ -98,26 +123,39 @@ Wer::contagemExercitos()
 	quantidadeExercitos = quantidadeExercitos/2;
 }
 
-unsigned short int
-Wer::getQuantidadeExercitos()
-{
-	return quantidadeExercitos;
-}
-
-bool
-Wer::objetivoCumprido()
-{
-	return true; 
-}
-
 void
-Wer::turno()
+Wer::distribuirTerritorios()
 {
-	this->contagemExercitos();
-	// @ TODO xxxxxxxxxxx
-	//this->setExercitosNoMapa();
-	//this->atacar( controlador.getTerritorioOrigem(), controlador.getTerritorioDestino() );
-	//this->moverExercitos( controlador.getTerritorioOrigem(), controlador.getTerritorioDestino(), controlador.getExercitosMovidos() );
+    unsigned short int
+    i;
+
+    std::list<Territorio*>
+    listaTerritorios;
+
+    Territorio*
+    _territorio;
+
+    std::vector<Territorio*>
+    vetorTerritorios;
+
+
+    listaTerritorios = controlador.getListaTerritorios();
+
+    while ( !listaTerritorios.empty() )
+    {
+        _territorio = *(listaTerritorios.begin());
+        vetorTerritorios.push_back( _territorio );
+        listaTerritorios.pop_front();
+    }
+    std::random_shuffle( vetorTerritorios.begin(), vetorTerritorios.end() );
+
+    while( !*(vetorTerritorios.end()) )
+    {
+        _territorio = vetorTerritorios[i];
+        i++;
+        _territorio->setPossuidor( controlador.getJogadorAtual() );
+        controlador.getProximoJogador();
+    }
 }
 
 void
@@ -126,102 +164,51 @@ Wer::fimDoJogo()
 
 }
 
-void
-Wer::atacar( Territorio* _territorioOrigem, Territorio* _territorioDestino )
+unsigned short int
+Wer::getQuantidadeExercitos()
 {
-	std::list<unsigned short int>
-	dadosAtaque;
+	return quantidadeExercitos;
+}
 
-	std::list<unsigned short int>
-	dadosDefesa;
-		
-	unsigned short int
-	exercitosOrigem;
+void
+Wer::jogo()
+{
+    unsigned short int
+    i;
 
-	unsigned short int
-	exercitosDestino;
+    std::list<Jogador*>
+    listaJogadores;
 
-	unsigned short int
-	ataque;
+    listaJogadores = controlador.getListaJogadores();
 
-	unsigned short int
-	defesa;
+    this->distribuirTerritorios();
 
-	exercitosOrigem = _territorioOrigem->getExercitos();
-	exercitosDestino = _territorioDestino->getExercitos();
+    for( i=1; i<=listaJogadores.size(); i++ )
+    {
+        this->contagemExercitos();
+        // @ TODO xxxxxxxxxxx
+        //this->setExercitosNoMapa();
+        controlador.getProximoJogador();
+    }
 
-	if ( _territorioOrigem->pertenceA(controlador.getJogadorAtual())       &&
-		 _territorioOrigem->fazFronteiraCom(_territorioDestino->getNome()) &&
-		 _territorioOrigem->getExercitos() > 1                             &&
-		 !(_territorioDestino->pertenceA( controlador.getJogadorAtual() ))  )
-	{
-		if( exercitosOrigem >= 4 )
-		{
-			dadosAtaque.push_back( this->rolarDado() );
-		}
-		if( exercitosOrigem >=3 )
-		{
-			dadosAtaque.push_back( this->rolarDado() );
-		}
-		if( exercitosOrigem >=2 )
-		{
-			dadosAtaque.push_back( this->rolarDado() );
-		}if( exercitosOrigem >= 3 )
-		{
-			dadosDefesa.push_back( this->rolarDado() );
-		}
-		if( exercitosOrigem >=2 )
-		{
-			dadosDefesa.push_back( this->rolarDado() );
-		}
-		if( exercitosOrigem >=1 )
-		{
-			dadosDefesa.push_back( this->rolarDado() );
-		}
-		dadosAtaque.sort();
-		dadosDefesa.sort();
-		while( !dadosAtaque.empty() )
-		{
-			if( !dadosDefesa.empty() )
-			{
-				ataque = *(dadosAtaque.rbegin());
-				dadosAtaque.pop_back();
-				defesa = *(dadosDefesa.rbegin());
-				dadosDefesa.pop_back();
+    while( !this->objetivoCumprido() )
+    {
+        this->turno();
+        controlador.getProximoJogador();
+    }
 
-				if( ataque > defesa )
-				{
-					if( exercitosDestino == 1 )
-					{
-						--exercitosOrigem;
-						_territorioOrigem->setPossuidor( controlador.getJogadorAtual() );
-					}
-					else
-					{
-						--exercitosDestino;
-					}
-				}
-				else
-				{
-					--exercitosDestino;
-				}
-			}
-		}
+    this->fimDoJogo();
 
-		_territorioOrigem->setExercitos( exercitosOrigem );
-		_territorioDestino->setExercitos( exercitosDestino );
-
-	}
 }
 
 void
 Wer::moverExercitos(Territorio* _territorioOrigem, Territorio* _territorioDestino, unsigned short int exercitosMovimentados)
 {
 	unsigned short int
-	exercitosOrigem = _territorioOrigem->getExercitos();
+	exercitosDestino = _territorioDestino->getExercitos();
 
 	unsigned short int
-	exercitosDestino = _territorioDestino->getExercitos();
+    exercitosOrigem = _territorioOrigem->getExercitos();
 
 	if ( _territorioOrigem->fazFronteiraCom(_territorioDestino->getNome()) &&
 		 _territorioOrigem->pertenceA( controlador.getJogadorAtual() )     &&
@@ -233,8 +220,54 @@ Wer::moverExercitos(Territorio* _territorioOrigem, Territorio* _territorioDestin
 	}
 }
 
+bool
+Wer::objetivoCumprido()
+{
+    std::list<Territorio*>
+    listaTerritorios;
+
+    unsigned short int
+    quantidadeTerritorios = 0;
+
+    unsigned short int
+    quantidadeTerritoriosJogador;
+
+    Territorio*
+    _territorio;
+
+    listaTerritorios = controlador.getListaTerritorios();
+    quantidadeTerritoriosJogador = listaTeritorios.size();
+
+    while ( !listaTerritorios.empty() )
+    {
+        _territorio = *(listaTerritorios.begin());
+        listaTerritorios.pop_front();
+        if ( _territorio->pertenceA( controlador.getJogadorAtual() ) )
+        {
+            quantidadeTerritorios++;
+        }
+    }
+
+    if( quantidadeTerritorios != quantidadeTerritoriosJogador )
+    {
+        return false;
+    }
+
+    return true;
+}
+
 unsigned short int
 Wer::rolarDado()
 {
 	return dado.embaralha();
+}
+
+void
+Wer::turno()
+{
+    this->contagemExercitos();
+    // @ TODO xxxxxxxxxxx
+    //this->setExercitosNoMapa();
+    //this->atacar( controlador.getTerritorioOrigem(), controlador.getTerritorioDestino() );
+    //this->moverExercitos( controlador.getTerritorioOrigem(), controlador.getTerritorioDestino(), controlador.getExercitosMovidos() );
 }
