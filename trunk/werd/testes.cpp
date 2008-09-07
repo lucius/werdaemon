@@ -172,6 +172,6 @@ testaJogo()
     Wer
     wer;
 
-    std::cout << "(testaJogo) Começando o jogo..." << std::endl;
-    wer.jogo();
+    std::cout << "(testaJogo) Testa jogo..." << std::endl;
+    wer.teste();
 }
