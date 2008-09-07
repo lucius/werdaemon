@@ -19,6 +19,9 @@ void
 testeRelacaoJogadoresTerritorios();
 
 void
+testaStreaming();
+
+void
 todosOsTestes();
 
 void

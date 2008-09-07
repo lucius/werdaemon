@@ -6,7 +6,7 @@
 #include "Jogador.h"
 
 class
-Territorio; /*   Referência cruzada entre classes   */
+Territorio; /*   ReferÃªncia cruzada entre classes   */
 #include "Territorio.h"
 
 class
@@ -36,7 +36,7 @@ Jogador
     protected:
         std::string
         nick;
-                                     /*   Referência cruzada entre classes   */
+                                     /*   ReferÃªncia cruzada entre classes   */
         std::map<std::string, void*> /*   std::map<std::string, Territorio*>   */
         territorios;
 };

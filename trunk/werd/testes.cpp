@@ -153,6 +153,19 @@ testeRelacaoJogadoresTerritorios()
 }
 
 void
+testaStreaming()
+{
+    std::vector<int>
+    teste;
+
+    teste.push_back(10);
+    teste.push_back(20);
+    teste.push_back(30);
+
+
+}
+
+void
 todosOsTestes()
 {
 
