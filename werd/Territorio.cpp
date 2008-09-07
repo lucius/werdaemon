@@ -41,7 +41,7 @@ Territorio::setExercitos(unsigned short int _exercitos)
 bool
 Territorio::fazFronteiraCom(std::string _nomeTerritorio)
 {
-    if (0 == this->fronteiras.count(_nomeTerritorio))
+    if (0 != this->fronteiras.count(_nomeTerritorio))
     {
         std::cout << "(Territorio::fazFronteiraCom) '" << this->nome << "' faz fronteira com '" << _nomeTerritorio << "'..." << std::endl;
         return true;
@@ -55,7 +55,7 @@ void
 Territorio::adicionaFronteiraCom(Territorio* _territorio)
 {
     fronteiras[_territorio->getNome()] = _territorio;
-    std::cout << "(Territorio::adicionaFronteiraCom) '" << this->nome << "' está fazendo fronteira com '" << _territorio->getNome() << "'..." << std::endl;
+    std::cout << "(Territorio::adicionaFronteiraCom) '" << this->nome << "' estï¿½ fazendo fronteira com '" << _territorio->getNome() << "'..." << std::endl;
 }
 
 Jogador*
@@ -63,7 +63,7 @@ Territorio::getPossuidor()
 {
     if (NULL != this->possuidor)
     {
-        std::cout << "(Territorio::getPossuidor) '" << this->getNome() << "' é possuído por '" << this->castPossuidor()->getNick() << "'..." << std::endl;
+        std::cout << "(Territorio::getPossuidor) '" << this->getNome() << "' ï¿½ possuï¿½do por '" << this->castPossuidor()->getNick() << "'..." << std::endl;
     }
 
     return this->castPossuidor();
@@ -77,13 +77,13 @@ Territorio::setPossuidor(Jogador* _jogador)
     if (NULL == this->possuidor)
     {
         this->possuidor = _jogador;
-        std::cout << "(Territorio::setPossuidor) '" << this->getNome() << "' não pertence a jogador algum. Atribuído a '" << _jogador->getNick() << "'..." << std::endl;
+        std::cout << "(Territorio::setPossuidor) '" << this->getNome() << "' nï¿½o pertence a jogador algum. Atribuï¿½do a '" << _jogador->getNick() << "'..." << std::endl;
     }
     else if (this->castPossuidor()->getNick() != _jogador->getNick())
     {
         this->castPossuidor()->perdeTerritorio(this);
         this->possuidor = _jogador;
-        std::cout << "(Territorio::setPossuidor) '" << this->getNome() << "' atribuído a '" << _jogador->getNick() << "'..." << std::endl;
+        std::cout << "(Territorio::setPossuidor) '" << this->getNome() << "' atribuï¿½do a '" << _jogador->getNick() << "'..." << std::endl;
         _jogador->ganhaTerritorio(this);
     }
 }
