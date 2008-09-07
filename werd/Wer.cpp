@@ -10,6 +10,11 @@ Wer::Wer()
 
 }
 
+Wer::~Wer()
+{
+
+}
+
 void
 Wer::atacar( Territorio* _territorioOrigem, Territorio* _territorioDestino )
 {
@@ -73,6 +78,8 @@ Wer::atacar( Territorio* _territorioOrigem, Territorio* _territorioDestino )
                 dadosAtaque.pop_back();
                 defesa = *(dadosDefesa.rbegin());
                 dadosDefesa.pop_back();
+                std::cout << "(Wer::atacar) Dado de Ataque: " << ataque << std::endl;
+                std::cout << "(Wer::atacar) Dado de Defesa: " << defesa << std::endl;
 
                 if( ataque > defesa )
                 {
@@ -138,7 +145,6 @@ Wer::distribuirTerritorios()
     std::vector<Territorio*>
     vetorTerritorios;
 
-
     listaTerritorios = controlador.getListaTerritorios();
 
     while ( !listaTerritorios.empty() )
@@ -155,6 +161,7 @@ Wer::distribuirTerritorios()
         i++;
         _territorio->setPossuidor( controlador.getJogadorAtual() );
         controlador.getProximoJogador();
+        std::cout << "boga" << std::endl;
     }
 }
 
@@ -236,7 +243,7 @@ Wer::objetivoCumprido()
     _territorio;
 
     listaTerritorios = controlador.getListaTerritorios();
-    quantidadeTerritoriosJogador = listaTeritorios.size();
+    quantidadeTerritoriosJogador = listaTerritorios.size();
 
     while ( !listaTerritorios.empty() )
     {

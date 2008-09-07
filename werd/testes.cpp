@@ -8,6 +8,8 @@
 #include "TabelaStatus.h"
 #include "TuplaStatus.h"
 
+#include "Wer.h"
+
 
 void
 testaJogadores()
@@ -64,7 +66,7 @@ testaTerritorios()
     Computacao->adicionaFronteiraCom(Fisica);
     Computacao->adicionaFronteiraCom(Matematica);
 
-    std::cout << "(testaTerritorios) Obtendo território por nome e adicionando fronteiras..." << std::endl;
+    std::cout << "(testaTerritorios) Obtendo territï¿½rio por nome e adicionando fronteiras..." << std::endl;
     controlador.getTerritorio("Computacao")->adicionaFronteiraCom(controlador.getTerritorio("Economia"));
 
     std::cout << "(testaTerritorios) Checando fronteiras..." << std::endl;
@@ -74,11 +76,11 @@ testaTerritorios()
     Computacao->fazFronteiraCom("Biologia");
     Computacao->fazFronteiraCom("Piramide Egipcia");
 
-    std::cout << "(testaTerritorios) Obtendo lista com todos os territórios..." << std::endl;
+    std::cout << "(testaTerritorios) Obtendo lista com todos os territï¿½rios..." << std::endl;
     std::list<Territorio*>
     territorios = controlador.getListaTerritorios();
 
-    std::cout << "(testaTerritorios) Iterando sobre a lista com todos os territórios obtidos..." << std::endl;
+    std::cout << "(testaTerritorios) Iterando sobre a lista com todos os territï¿½rios obtidos..." << std::endl;
     for (std::list<Territorio*>::iterator it = territorios.begin(); it != territorios.end(); ++it)
     {
         std::cout << "(testaTerritorios) '" << (*it)->getNome() << "' encontrado..." << std::endl;
@@ -134,7 +136,7 @@ testeRelacaoJogadoresTerritorios()
     controlador.atualizaTabelaStatus();
 
     Computacao->setPossuidor(Cido);
-    std::cout << "(testeRelacaoJogadoresTerritorios) " << Computacao->getNome() << " é possuído por: " << Computacao->getPossuidor()->getNick() << std::endl;
+    std::cout << "(testeRelacaoJogadoresTerritorios) " << Computacao->getNome() << " ï¿½ possuï¿½do por: " << Computacao->getPossuidor()->getNick() << std::endl;
 
     std::cout << "(testeRelacaoJogadoresTerritorios) Atualizando a tabela de status do jogo." << std::endl;
     controlador.atualizaTabelaStatus();
@@ -142,9 +144,9 @@ testeRelacaoJogadoresTerritorios()
     Economia->setPossuidor(Bode);
     Biologia->setPossuidor(Cido);
     Computacao->setPossuidor(Lucius);
-    std::cout << "(testeRelacaoJogadoresTerritorios) " << Economia->getNome()   << " é possuído por: " << Economia->getPossuidor()->getNick()   << std::endl;
-    std::cout << "(testeRelacaoJogadoresTerritorios) " << Biologia->getNome()   << " é possuído por: " << Biologia->getPossuidor()->getNick()   << std::endl;
-    std::cout << "(testeRelacaoJogadoresTerritorios) " << Computacao->getNome() << " é possuído por: " << Computacao->getPossuidor()->getNick() << std::endl;
+    std::cout << "(testeRelacaoJogadoresTerritorios) " << Economia->getNome()   << " ï¿½ possuï¿½do por: " << Economia->getPossuidor()->getNick()   << std::endl;
+    std::cout << "(testeRelacaoJogadoresTerritorios) " << Biologia->getNome()   << " ï¿½ possuï¿½do por: " << Biologia->getPossuidor()->getNick()   << std::endl;
+    std::cout << "(testeRelacaoJogadoresTerritorios) " << Computacao->getNome() << " ï¿½ possuï¿½do por: " << Computacao->getPossuidor()->getNick() << std::endl;
 
     std::cout << "(testeRelacaoJogadoresTerritorios) Atualizando a tabela de status do jogo." << std::endl;
     controlador.atualizaTabelaStatus();
@@ -162,4 +164,110 @@ todosOsTestes()
     testeRelacaoJogadoresTerritorios();
 
     std::cout << "(todosOsTestes) Finalizando o WERd..." << std::endl;
+}
+
+void
+testaJogo()
+{
+    Wer
+    wer;
+
+    Controlador
+    controlador;
+
+    //adicionar x jogadores
+    std::cout << "(testaJogo) Adicionando jogadores..." << std::endl;
+    Jogador
+    *Bode = controlador.novoJogador("Bode"),
+    *Cido = controlador.novoJogador("Cido"),
+    *Lucius = controlador.novoJogador("Lucius");
+
+    std::cout << "(testaJogo) Obtendo primeiro jogador..." << std::endl;
+    std::cout << "(testaJogo) Jogador escolhido: '" << controlador.getProximoJogador()->getNick() << "'..." << std::endl;
+
+    //adicionar territorios e fronteiras
+   std::cout << "(testaJogo) Adicionando territorios..." << std::endl;
+   Territorio
+   *A = controlador.novoTerritorio("A"),
+   *B = controlador.novoTerritorio("B"),
+   *C = controlador.novoTerritorio("C"),
+   *D = controlador.novoTerritorio("D"),
+   *E = controlador.novoTerritorio("E"),
+   *F = controlador.novoTerritorio("F"),
+   *G = controlador.novoTerritorio("G"),
+   *H = controlador.novoTerritorio("H"),
+   *I = controlador.novoTerritorio("I"),
+   *J = controlador.novoTerritorio("J");
+
+   std::cout << "(testaJogo) Adicionando fronteiras..." << std::endl;
+   A->adicionaFronteiraCom(B);
+   A->adicionaFronteiraCom(C);
+   A->adicionaFronteiraCom(D);
+   A->adicionaFronteiraCom(F);
+   A->adicionaFronteiraCom(J);
+   B->adicionaFronteiraCom(A);
+   B->adicionaFronteiraCom(C);
+   C->adicionaFronteiraCom(A);
+   C->adicionaFronteiraCom(B);
+   C->adicionaFronteiraCom(D);
+   C->adicionaFronteiraCom(E);
+   C->adicionaFronteiraCom(F);
+   D->adicionaFronteiraCom(A);
+   D->adicionaFronteiraCom(C);
+   D->adicionaFronteiraCom(F);
+   E->adicionaFronteiraCom(C);
+   E->adicionaFronteiraCom(F);
+   F->adicionaFronteiraCom(A);
+   F->adicionaFronteiraCom(C);
+   F->adicionaFronteiraCom(D);
+   F->adicionaFronteiraCom(E);
+   F->adicionaFronteiraCom(I);
+   F->adicionaFronteiraCom(J);
+   G->adicionaFronteiraCom(C);
+   G->adicionaFronteiraCom(H);
+   H->adicionaFronteiraCom(G);
+   H->adicionaFronteiraCom(I);
+   H->adicionaFronteiraCom(J);
+   I->adicionaFronteiraCom(F);
+   I->adicionaFronteiraCom(H);
+   J->adicionaFronteiraCom(A);
+   J->adicionaFronteiraCom(F);
+   J->adicionaFronteiraCom(H);
+
+   std::cout << "(testaJogo) Distribuindo territorios aos jogadores..." << std::endl;
+   //wer.distribuirTerritorios();
+   A->setPossuidor(Bode);
+   B->setPossuidor(Cido);
+   C->setPossuidor(Lucius);
+   D->setPossuidor(Bode);
+   E->setPossuidor(Cido);
+   F->setPossuidor(Lucius);
+   G->setPossuidor(Bode);
+   H->setPossuidor(Cido);
+   I->setPossuidor(Lucius);
+   J->setPossuidor(Bode);
+
+   std::list<Territorio*>
+   listaTerritorios;
+
+   Territorio*
+   _territorio;
+
+   listaTerritorios = controlador.getListaTerritorios();
+   while( !listaTerritorios.empty() )
+   {
+       _territorio = *(listaTerritorios.begin());
+       listaTerritorios.pop_front();
+
+       std::cout << "(testaJogo) " << _territorio->getNome() << " pertence a: " << (_territorio->getPossuidor())->getNick() << std::endl;
+   }
+
+   std::cout << "(testaJogo) Quantidade de exercitos no territorio A: " << A->getExercitos() << std::endl;
+   A->setExercitos( 5 );
+   std::cout << "(testaJogo) Quantidade de exercitos no territorio A: " << A->getExercitos() << std::endl;
+
+   //wer.atacar( A, B );
+   std::cout << "(testaJogo) Quantidade de exercitos no territorio A: " << A->getExercitos() << std::endl;
+   std::cout << "(testaJogo) Quantidade de exercitos no territorio B: " << B->getExercitos() << std::endl;
+
 }

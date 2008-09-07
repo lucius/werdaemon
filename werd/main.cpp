@@ -3,10 +3,11 @@
 int
 main()
 {
-    testaJogadores();
-    testaTerritorios();
-    testeRelacaoJogadoresTerritorios();
-    todosOsTestes();
+//    testaJogadores();
+//    testaTerritorios();
+//    testeRelacaoJogadoresTerritorios();
+//    todosOsTestes();
+    testaJogo();
 
 	return 0;
 }
