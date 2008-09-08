@@ -1,10 +1,11 @@
 #include "Wer.h"
 
-#include <assert.h>
 #include <algorithm>
+#include <assert.h>
 #include <list>
 #include <vector>
 #include "Random.h"
+
 
 Wer::Wer()
 {
@@ -19,17 +20,17 @@ Wer::~Wer()
 void
 Wer::atacar( Territorio* _territorioOrigem, Territorio* _territorioDestino )
 {
-    unsigned short int
-    ataque;
-
-    unsigned short int
-    defesa;
-
     std::list<unsigned short int>
     dadosAtaque;
 
     std::list<unsigned short int>
     dadosDefesa;
+
+	unsigned short int
+    ataque;
+
+    unsigned short int
+    defesa;
 
     unsigned short int
     exercitosDestino;
@@ -37,82 +38,136 @@ Wer::atacar( Territorio* _territorioOrigem, Territorio* _territorioDestino )
     unsigned short int
     exercitosOrigem;
 
+    unsigned short int
+    _dado;
+
 
     exercitosOrigem = _territorioOrigem->getExercitos();
     exercitosDestino = _territorioDestino->getExercitos();
 
     std::cout << "(Wer::atacar) Territorio de Origem: " << _territorioOrigem->getNome() << std::endl;
     std::cout << "(Wer::atacar) Territorio de Destino: " << _territorioDestino->getNome() << std::endl;
+
     if( _territorioOrigem->pertenceA(controlador.getJogadorAtual()) )
     {
-        std::cout << "(Wer::atacar) Territorio de origem pertence à " << (controlador.getJogadorAtual())->getNick() << "." << std::endl;
+    	std::cout << "(Wer::atacar) " << _territorioOrigem->getNome() << " pertence a " << (_territorioOrigem->getPossuidor())->getNick() << "." << std::endl; 
+
+    	if( _territorioOrigem->fazFronteiraCom(_territorioDestino->getNome()) )
+    	{
+    		std::cout << "(Wer::atacar) " << _territorioOrigem->getNome() << " faz fronteira com " << _territorioDestino->getNome() << std::endl;
+
+    		if( _territorioOrigem->getExercitos() > 1 )
+    		{
+    			std::cout << "(Wer::atacar) " << _territorioOrigem->getNome() << " possui " << _territorioOrigem->getExercitos() << " exercitos... " << std::endl;
+
+    			if( !(_territorioDestino->pertenceA(controlador.getJogadorAtual())) )
+    			{
+    				std::cout << "(Wer::atacar) " << _territorioDestino->getNome() << " pertence a " << (_territorioDestino->getPossuidor())->getNick() << std::endl;
+
+    				if( exercitosOrigem >= 2 )
+			        {
+    					_dado = this->rolarDado();
+			            dadosAtaque.push_back( _dado );
+			            std::cout << "(Wer::atacar) Primeiro dado de ataque: " << _dado << std::endl;
+			        }
+
+			        if( exercitosOrigem >= 3 )
+			        {
+    					_dado = this->rolarDado();
+			            dadosAtaque.push_back( _dado );
+
+			            std::cout << "(Wer::atacar) Segundo dado de ataque: " << _dado << std::endl;
+			        }
+
+			        if( exercitosOrigem >= 4 )
+			        {
+    					_dado = this->rolarDado();
+			            dadosAtaque.push_back( _dado );
+			            std::cout << "(Wer::atacar) Terceiro dado de ataque: " << _dado << std::endl;			        
+			        }
+
+			        if( exercitosDestino >= 1 )
+			        {
+    					_dado = this->rolarDado();
+			            dadosDefesa.push_back( _dado );
+			            std::cout << "(Wer::atacar) Primeiro dado de defesa: " << _dado << std::endl;
+			        }
+
+			        if( exercitosDestino >= 2 )
+			        {
+    					_dado = this->rolarDado();
+			            dadosDefesa.push_back( _dado );
+			            std::cout << "(Wer::atacar) Segundo dado de defesa: " << _dado << std::endl;
+			        }
+
+			        if( exercitosDestino >= 3 )
+			        {
+    					_dado = this->rolarDado();
+			            dadosDefesa.push_back( _dado );
+			            std::cout << "(Wer::atacar) Terceiro dado de defesa: " << _dado << std::endl;
+			        }
+
+			        dadosAtaque.sort();
+			        dadosDefesa.sort();
+			        std::cout << "(Wer::atacar) Dados ordenados..." << std::endl;
+
+			        while( !dadosAtaque.empty() && !dadosDefesa.empty() )
+			        {
+			        	std::cout << "(Wer::atacar) Comparando dados..." << std::endl;
+			            ataque = *(dadosAtaque.rbegin());
+			            dadosAtaque.pop_back();
+
+			            defesa = *(dadosDefesa.rbegin());
+			            dadosDefesa.pop_back();
+
+			            std::cout << "(Wer::atacar) Dado de Ataque: " << ataque << std::endl;
+			            std::cout << "(Wer::atacar) Dado de Defesa: " << defesa << std::endl;
+
+			            if( ataque > defesa )
+			            {
+			            	std::cout << "(Wer::atacar) Ataque ganha..." << std::endl;
+
+			                if( exercitosDestino == 1 )
+			                {
+			                    _territorioOrigem->setExercitos( --exercitosOrigem );
+			                    _territorioDestino->setPossuidor( controlador.getJogadorAtual() );
+			                }
+			                else
+			                {
+			                    _territorioDestino->setExercitos( --exercitosDestino );
+			                }
+			            }
+			            else
+			            {
+			            	std::cout << "(Wer::atacar) Defesa ganha..." << std::endl;
+
+			                _territorioOrigem->setExercitos( --exercitosOrigem );
+			            }
+
+			            std::cout << "(Wer::atacar) Quantidade de exercitos no territorio de origem: " << _territorioOrigem->getExercitos() << std::endl;
+			            std::cout << "(Wer::atacar) Quantidade de exercitos no territorio de destino: " << _territorioDestino->getExercitos() << std::endl;
+			        }
+
+    			}
+    			else
+    			{
+    				std::cout << "(Wer::atacar) " << _territorioDestino->getNome() << " pertence a " << (_territorioDestino->getPossuidor())->getNick() << std::endl;
+    				std::cout << "(Wer::atacar) Não é possivel atacar um territorio próprio..." << std::endl;
+    			}
+    		}
+    		else
+    		{
+    			std::cout << "(Wer::atacar) Quantidade de exercitos insuficientes... " << _territorioOrigem->getExercitos() << " exercito..." << std::endl;
+    		}
+    	}
+    	else
+    	{
+    		std::cout << "(Wer::atacar) " << _territorioOrigem->getNome() << " não faz fronteira com " << _territorioDestino->getNome() << std::endl;
+    	}
     }
-    std::cout << "(Wer::atacar) Quantidade de exercitos no territorio de origem: " << _territorioOrigem->getExercitos() << std::endl;
-    if ( _territorioOrigem->pertenceA(controlador.getJogadorAtual())       &&
-         _territorioOrigem->fazFronteiraCom(_territorioDestino->getNome()) &&
-         _territorioOrigem->getExercitos() > 1                             &&
-         !(_territorioDestino->pertenceA( controlador.getJogadorAtual() ))  )
+    else
     {
-        if( exercitosOrigem >= 4 )
-        {
-            dadosAtaque.push_back( this->rolarDado() );
-        }
-        if( exercitosOrigem >=3 )
-        {
-            dadosAtaque.push_back( this->rolarDado() );
-        }
-        if( exercitosOrigem >=2 )
-        {
-            dadosAtaque.push_back( this->rolarDado() );
-        }
-        if( exercitosDestino >= 3 )
-        {
-            dadosDefesa.push_back( this->rolarDado() );
-        }
-        if( exercitosDestino >=2 )
-        {
-            dadosDefesa.push_back( this->rolarDado() );
-        }
-        if( exercitosDestino >=1 )
-        {
-            dadosDefesa.push_back( this->rolarDado() );
-        }
-
-        dadosAtaque.sort();
-        dadosDefesa.sort();
-
-        while( !dadosAtaque.empty() && !dadosDefesa.empty() )
-        {
-            ataque = *(dadosAtaque.rbegin());
-            dadosAtaque.pop_back();
-
-            defesa = *(dadosDefesa.rbegin());
-            dadosDefesa.pop_back();
-
-            std::cout << "(Wer::atacar) Dado de Ataque: " << ataque << std::endl;
-            std::cout << "(Wer::atacar) Dado de Defesa: " << defesa << std::endl;
-
-            if( ataque > defesa )
-            {
-                if( exercitosDestino == 1 )
-                {
-                    _territorioOrigem->setExercitos( --exercitosOrigem );
-                    _territorioDestino->setPossuidor( controlador.getJogadorAtual() );
-                }
-                else
-                {
-                    _territorioDestino->setExercitos( --exercitosDestino );
-                }
-            }
-            else
-            {
-                _territorioOrigem->setExercitos( --exercitosOrigem );
-            }
-
-            std::cout << "(Wer::atacar) Quantidade de exercitos no territorio de origem: " << _territorioOrigem->getExercitos() << std::endl;
-            std::cout << "(Wer::atacar) Quantidade de exercitos no territorio de destino: " << _territorioDestino->getExercitos() << std::endl;
-        }
-
+    	std::cout << "(Wer::atacar) " << _territorioOrigem->getNome() << " pertence a " << (_territorioOrigem->getPossuidor())->getNick() << "." << std::endl;
     }
 }
 
@@ -125,28 +180,32 @@ Wer::contagemExercitos()
 	Territorio*
 	_territorio;
 
+	unsigned short int
+	quantidadeTerritorios = 0;
+
+
 	this->quantidadeExercitos = 0;
 	listaTerritorios = controlador.getListaTerritorios();
+
 	while ( !listaTerritorios.empty() )
 	{
 		_territorio = *(listaTerritorios.begin());
 		listaTerritorios.pop_front();
+
 		if ( _territorio->pertenceA( controlador.getJogadorAtual() ) )
 		{
-			this->quantidadeExercitos++;
+			quantidadeTerritorios++;
 		}
 	}
-	std::cout << "(Wer::contagemExercitos) " << quantidadeExercitos;
-	std::cout << " territorios pertencentes à: " << controlador.getJogadorAtual()->getNick() << std::endl;
+	std::cout << "(Wer::contagemExercitos) " << quantidadeTerritorios << " territorios pertencentes à: " << controlador.getJogadorAtual()->getNick() << std::endl;
 
-	this->quantidadeExercitos = this->quantidadeExercitos/2;
+	this->quantidadeExercitos = quantidadeTerritorios/2;
 
 	if( this->quantidadeExercitos < 3 )
 	{
 	    this->quantidadeExercitos = 3;
 	}
-	std::cout << "(Wer::contagemExercitos) " << this->quantidadeExercitos;
-	std::cout << " exércitos disponiveis para distribuição..." << std::endl;
+	std::cout << "(Wer::contagemExercitos) " << this->quantidadeExercitos << " exércitos disponiveis para distribuição..." << std::endl;
 }
 
 void
@@ -187,14 +246,14 @@ Wer::distribuirTerritorios()
     std::cout << "(Wer::distribuiTerritorios) Randomiza os territorios para serem distribuidos..." << std::endl;
     std::random_shuffle( vetorTerritorios.begin(), vetorTerritorios.end(), funcaoGeradora );
 
-    std::cout << "(Wer::distribuiTerritorios) Distribuir territorios..." << std::endl;
+    std::cout << "(Wer::distribuiTerritorios) Distribuir territorios aos jogadores..." << std::endl;
     while( i < vetorTerritorios.size() )
     {
         _jogador = controlador.getJogadorAtual();
-        std::cout << "(Wer::distribuirTerritorios) Jogador atual: " << _jogador->getNick() << std::endl;
 
         _territorio = vetorTerritorios[i];
         i++;
+
         _territorio->setPossuidor( _jogador );
         controlador.getProximoJogador();
     }
@@ -210,7 +269,7 @@ Wer::fimDoJogo()
 unsigned short int
 Wer::getQuantidadeExercitos()
 {
-	return quantidadeExercitos;
+	return this->quantidadeExercitos;
 }
 
 void
@@ -224,6 +283,7 @@ Wer::jogo()
 
     listaJogadores = controlador.getListaJogadores();
 
+    std::cout << "(Wer::jogo) Distribuir territorios aos jogadores... " << std::endl;
     this->distribuirTerritorios();
 
     for( i=1; i<=listaJogadores.size(); i++ )
@@ -254,13 +314,42 @@ Wer::moverExercitos(Territorio* _territorioOrigem, Territorio* _territorioDestin
 	unsigned short int
     exercitosOrigem = _territorioOrigem->getExercitos();
 
-	if ( _territorioOrigem->fazFronteiraCom(_territorioDestino->getNome()) &&
-		 _territorioOrigem->pertenceA( controlador.getJogadorAtual() )     &&
-		 _territorioDestino->pertenceA( controlador.getJogadorAtual() )    &&
-		 (exercitosMovimentados < exercitosOrigem) )
+	if( _territorioOrigem->pertenceA(controlador.getJogadorAtual()) )
 	{
-		_territorioOrigem->setExercitos( exercitosOrigem-exercitosMovimentados );
-		_territorioDestino->setExercitos( exercitosDestino+exercitosMovimentados );
+		std::cout << "(Wer::moverExercitos) " << _territorioOrigem->getNome() << " pertence a " << (_territorioOrigem->getPossuidor())->getNick() << "." << std::endl;
+
+		if( _territorioOrigem->fazFronteiraCom(_territorioDestino->getNome()) )
+		{
+			std::cout << "(Wer::moverExercitos) " << _territorioOrigem->getNome() << " faz fronteira com " << _territorioDestino->getNome() << std::endl;
+
+			if( _territorioDestino->pertenceA(controlador.getJogadorAtual()) )
+			{
+				std::cout << "(Wer::moverExercitos) " << _territorioDestino->getNome() << " pertence a " << (_territorioDestino->getPossuidor())->getNick() << "." << std::endl;
+
+				if( (exercitosMovimentados < exercitosOrigem) )
+				{
+					std::cout << "(Wer::moverExercitos) Movimentando " << exercitosMovimentados << " exercitos, de " << exercitosOrigem << " disponíveis..." << std::endl; 
+					_territorioOrigem->setExercitos( exercitosOrigem-exercitosMovimentados );
+					_territorioDestino->setExercitos( exercitosDestino+exercitosMovimentados );
+				}
+				else
+				{
+					std::cout << "(Wer::moverExercitos) Quantidade de exercitos insuficientes..." << std::endl;
+				}
+			}
+			else
+			{
+				std::cout << "(Wer::atacar) " << _territorioDestino->getNome() << " pertence a " << (_territorioDestino->getPossuidor())->getNick() << "." << std::endl;
+			}
+		}
+		else
+		{
+			std::cout << "(Wer::atacar) " << _territorioOrigem->getNome() << " não faz fronteira com " << _territorioDestino->getNome() << std::endl;
+		}
+	}
+	else
+	{
+		std::cout << "(Wer::atacar) " << _territorioOrigem->getNome() << " pertence a " << (_territorioOrigem->getPossuidor())->getNick() << "." << std::endl;
 	}
 }
 
@@ -282,6 +371,7 @@ Wer::objetivoCumprido()
     listaTerritorios = controlador.getListaTerritorios();
     quantidadeTerritoriosJogador = listaTerritorios.size();
 
+    std::cout << "(Wer::objetivoCumprido) Testar se o objetivo foi cumprido..." << std::endl;
     while ( !listaTerritorios.empty() )
     {
         _territorio = *(listaTerritorios.begin());
@@ -294,9 +384,11 @@ Wer::objetivoCumprido()
 
     if( quantidadeTerritorios != quantidadeTerritoriosJogador )
     {
+    	std::cout << "(Wer::obejtivoCumprido) Objetivo não cumprido..." << std::endl;
         return false;
     }
 
+    std::cout << "(Wer::objetivoCumprido) Objetivo cumprido..." << std::endl;
     return true;
 }
 
@@ -320,17 +412,21 @@ void
 Wer::teste()
 {
     //adicionar x jogadores
-    std::cout << "(Wer::Wer) Adicionando jogadores..." << std::endl;
+    std::cout << "(Wer::teste) Adicionando jogadores..." << std::endl;
+
     Jogador
     *Bode = controlador.novoJogador("Bode"),
     *Cido = controlador.novoJogador("Cido"),
     *Lucius = controlador.novoJogador("Lucius");
 
-    std::cout << "(Wer::Wer) Obtendo primeiro jogador..." << std::endl;
-    std::cout << "(Wer::Wer) Jogador escolhido: '" << controlador.getProximoJogador()->getNick() << "'..." << std::endl;
+    std::cout << "(Wer::teste) Jogadores adicionados..." << std::endl;
+
+    std::cout << "(Wer::teste) Obtendo primeiro jogador..." << std::endl;
+    std::cout << "(Wer::teste) Jogador escolhido: '" << controlador.getProximoJogador()->getNick() << "'..." << std::endl;
 
     //adicionar territorios e fronteiras
-    std::cout << "(Wer::Wer) Adicionando territorios..." << std::endl;
+    std::cout << "(Wer::teste) Adicionando territorios..." << std::endl;
+
     Territorio
     *A = controlador.novoTerritorio("A"),
     *B = controlador.novoTerritorio("B"),
@@ -343,7 +439,7 @@ Wer::teste()
     *I = controlador.novoTerritorio("I"),
     *J = controlador.novoTerritorio("J");
 
-    std::cout << "(Wer::Wer) Adicionando fronteiras..." << std::endl;
+    std::cout << "(Wer::teste) Adicionando fronteiras..." << std::endl;
     A->adicionaFronteiraCom(B);
     A->adicionaFronteiraCom(C);
     A->adicionaFronteiraCom(D);
@@ -377,6 +473,8 @@ Wer::teste()
     J->adicionaFronteiraCom(A);
     J->adicionaFronteiraCom(F);
     J->adicionaFronteiraCom(H);
+
+    std::cout << "(Wer::teste) Fronteiras adicionadas..." << std::endl;
 
     this->jogo();
 
@@ -486,16 +584,20 @@ Wer::teste()
 
     std::cout << "(Wer::teste) Quantidade de exercitos em A: " << (controlador.getTerritorio("A"))->getExercitos() << std::endl;
     (controlador.getTerritorio("A"))->setExercitos( 10 );
-    (controlador.getTerritorio("C"))->setExercitos( 1 );
+    (controlador.getTerritorio("C"))->setExercitos( 2 );
     std::cout << "(Wer::teste) Quantidade de exercitos em A: " << (controlador.getTerritorio("A"))->getExercitos() << std::endl;
     std::cout << "(Wer::teste) Quantidade de exercitos em C: " << (controlador.getTerritorio("C"))->getExercitos() << std::endl;
     std::cout << "(Wer::teste) Atacar do Territorio A no Territorio C... " << std::endl;
 
+    (controlador.getTerritorio("A"))->setPossuidor(Cido);
+    (controlador.getTerritorio("C"))->setPossuidor(Bode);
+    (controlador.getTerritorio("F"))->setPossuidor(Cido);
+    
     this->atacar( controlador.getTerritorio("A"), controlador.getTerritorio("C") );
     std::cout << "(Wer::teste) Quantidade de exercitos em A: " << (controlador.getTerritorio("A"))->getExercitos() << std::endl;
     std::cout << "(Wer::teste) Quantidade de exercitos em C: " << (controlador.getTerritorio("C"))->getExercitos() << std::endl;
 
-    this->moverExercitos( controlador.getTerritorio("A"), controlador.getTerritorio("F"), 8);
+    this->moverExercitos( controlador.getTerritorio("A"), controlador.getTerritorio("F"), 7);
     std::cout << "(Wer::teste) Quantidade de exercitos em A: " << (controlador.getTerritorio("A"))->getExercitos() << std::endl;
     std::cout << "(Wer::teste) Quantidade de exercitos em F: " << (controlador.getTerritorio("F"))->getExercitos() << std::endl;
 

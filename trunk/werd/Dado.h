@@ -20,4 +20,4 @@ class Dado
 		dado;
 };
 
-#endif /*DADO_H_*/
+#endif
