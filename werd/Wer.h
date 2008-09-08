@@ -60,4 +60,4 @@ class Wer
 		unsigned short int
 		quantidadeExercitos;
 };
-#endif /*WER_H_*/
+#endif
