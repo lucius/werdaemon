@@ -1,5 +1,7 @@
 #include "Servidor.h"
 
+#include "ServerSocket.h"
+
 Servidor::Servidor()
 {
 
@@ -10,11 +12,89 @@ Servidor::~Servidor()
 
 }
 
-
 unsigned short int
-Servidor::iniciaServidor()
+Servidor::iniciaServidor(unsigned int _porta = 6666)
 {
+    std::cout << "Iniciando servidor..." << std::endl;
 
+    try
+    {
+        ServerSocket
+        socketServidor(_porta);
+
+        while (true)
+        {
+            ServerSocket
+            socketTransmissao;
+
+            socketServidor.accept(socketTransmissao);
+
+            try
+            {
+                while (true)
+                {
+                    std::string
+                    dados;
+
+                    socketTransmissao >> dados;
+
+                    if ("NICK" == dados)
+                    {
+
+                    }
+
+                    if ("INICIA_JOGO" == dados)
+                    {
+                        socketTransmissao << "OK";
+                        socketTransmissao >> dados;
+                        std::cout << "data: " << dados << std::endl;
+                    }
+
+                    if ("ATAQUE" == dados)
+                    {
+
+                    }
+
+                    if ("MOVE_EXERCITOS" == dados)
+                    {
+
+                    }
+
+                    if ("MENSAGEM" == dados)
+                    {
+
+                    }
+
+                    if ("MENSAGEM_MULTICAST" == dados)
+                    {
+
+                    }
+
+                    if ("PASSA_TURNO" == dados)
+                    {
+
+                    }
+
+                    if ("GET_STATUS" == dados)
+                    {
+
+                    }
+                }
+            }
+            catch (SocketException&)
+            {
+
+            }
+        }
+    }
+    catch (SocketException& excessao)
+    {
+        std::cout << "(Servidor::iniciaServidor) Excessao lançada: " << excessao.description() << std::endl;
+
+        return 1;
+    }
+
+    return 0;
 }
 
 unsigned short int
