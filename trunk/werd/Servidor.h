@@ -13,7 +13,7 @@ Servidor
         ~Servidor();
 
         unsigned short int
-        iniciaServidor();
+        iniciaServidor(unsigned int);
 
         unsigned short int
         iniciaJogo();
@@ -49,7 +49,8 @@ Servidor
         static unsigned short int
         enviaPacote();
 
-        //CRIAR FILA ENCAMINHAMENTO DE PACOTES
+        std::queue<std::string>
+        filaPacotes;
 };
 
 #endif
