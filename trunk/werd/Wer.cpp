@@ -174,6 +174,18 @@ Wer::atacar( Territorio* _territorioOrigem, Territorio* _territorioDestino )
 void
 Wer::contagemExercitos()
 {
+	this->quantidadeExercitos = this->contagemTerritorios()/2;
+
+	if( this->quantidadeExercitos < 3 )
+	{
+	    this->quantidadeExercitos = 3;
+	}
+	std::cout << "(Wer::contagemExercitos) " << this->quantidadeExercitos << " exércitos disponiveis para distribuição..." << std::endl;
+}
+
+unsigned short int
+Wer::contagemTerritorios()
+{
 	std::list<Territorio*>
 	listaTerritorios;
 
@@ -184,7 +196,6 @@ Wer::contagemExercitos()
 	quantidadeTerritorios = 0;
 
 
-	this->quantidadeExercitos = 0;
 	listaTerritorios = controlador.getListaTerritorios();
 
 	while ( !listaTerritorios.empty() )
@@ -197,15 +208,9 @@ Wer::contagemExercitos()
 			quantidadeTerritorios++;
 		}
 	}
-	std::cout << "(Wer::contagemExercitos) " << quantidadeTerritorios << " territorios pertencentes à: " << controlador.getJogadorAtual()->getNick() << std::endl;
+	std::cout << "(Wer::contagemTerritorios) " << quantidadeTerritorios << " territorios pertencentes à: " << controlador.getJogadorAtual()->getNick() << std::endl;
 
-	this->quantidadeExercitos = quantidadeTerritorios/2;
-
-	if( this->quantidadeExercitos < 3 )
-	{
-	    this->quantidadeExercitos = 3;
-	}
-	std::cout << "(Wer::contagemExercitos) " << this->quantidadeExercitos << " exércitos disponiveis para distribuição..." << std::endl;
+	return quantidadeTerritorios;
 }
 
 void
@@ -294,15 +299,22 @@ Wer::jogo()
         controlador.getProximoJogador();
     }
 
-    /*
+    
     while( !this->objetivoCumprido() )
     {
-        this->turno();
+    	if( this->contagemTerritorios() != 0 )
+    	{
+    		this->turno();
+    	}
+    	else
+    	{
+    		std::cout << "(Wer::jogo) " << controlador.getJogadorAtual()->getNick() << " foi eliminado do jogo..." << std::endl;
+    	}
         controlador.getProximoJogador();
     }
 
     this->fimDoJogo();
-    */
+    
 }
 
 void
