@@ -21,6 +21,9 @@ class Wer
         void
         contagemExercitos();
 
+        unsigned short int
+        contagemTerritorios();
+
         void
         distribuirTerritorios();
 
