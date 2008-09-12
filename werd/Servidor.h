@@ -2,9 +2,10 @@
 #define SERVIDOR_H_
 
 #include <queue>
+#include "Thread.h"
 
 class
-Servidor
+Servidor : protected Thread
 {
     public:
         Servidor();

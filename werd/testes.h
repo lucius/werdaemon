@@ -19,7 +19,7 @@ void
 testeRelacaoJogadoresTerritorios();
 
 void
-testaStreaming();
+testaServidorMultiThread();
 
 void
 todosOsTestes();

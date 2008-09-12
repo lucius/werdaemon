@@ -15,24 +15,74 @@
 </extensions>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactName="wer_d" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.exe.debug.917929828" name="Debug" parent="cdt.managedbuild.config.gnu.exe.debug">
+<configuration artifactExtension="" artifactName="wer_d" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.exe.debug.917929828" name="Debug" parent="cdt.managedbuild.config.gnu.exe.debug" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="" prebuildStep="">
 <folderInfo id="cdt.managedbuild.config.gnu.exe.debug.917929828." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.exe.debug.763110629" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.exe.debug">
 <targetPlatform id="cdt.managedbuild.target.gnu.platform.exe.debug.2080044984" name="Debug Platform" superClass="cdt.managedbuild.target.gnu.platform.exe.debug"/>
-<builder buildPath="${workspace_loc:/wer_d/Debug}" id="cdt.managedbuild.target.gnu.builder.exe.debug.786388358" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.exe.debug"/>
+<builder autoBuildTarget="all" buildPath="${workspace_loc:/werd/Debug}" cleanBuildTarget="clean" enableAutoBuild="false" enableCleanBuild="true" enabledIncrementalBuild="true" id="cdt.managedbuild.target.gnu.builder.exe.debug.786388358" incrementalBuildTarget="all" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.exe.debug"/>
 <tool id="cdt.managedbuild.tool.gnu.archiver.base.1299783507" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
 <tool id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug.1127227637" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.debug">
 <option id="gnu.cpp.compiler.exe.debug.option.optimization.level.962980892" name="Optimization Level" superClass="gnu.cpp.compiler.exe.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.exe.debug.option.debugging.level.1059830169" name="Debug Level" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
+<option id="gnu.cpp.compiler.option.preprocessor.nostdinc.1882836961" name="Do not search system directories (-nostdinc)" superClass="gnu.cpp.compiler.option.preprocessor.nostdinc"/>
+<option id="gnu.cpp.compiler.option.preprocessor.preprocess.1542457074" name="Preprocess only (-E)" superClass="gnu.cpp.compiler.option.preprocessor.preprocess"/>
+<option id="gnu.cpp.compiler.option.preprocessor.def.103978919" name="Defined symbols (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def"/>
+<option id="gnu.cpp.compiler.option.preprocessor.undef.1101098506" name="Undefined symbols (-U)" superClass="gnu.cpp.compiler.option.preprocessor.undef"/>
+<option id="gnu.cpp.compiler.option.include.paths.1891956170" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths"/>
+<option id="gnu.cpp.compiler.option.optimization.flags.2127650761" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags"/>
+<option id="gnu.cpp.compiler.option.debugging.other.1356735629" name="Other debugging flags" superClass="gnu.cpp.compiler.option.debugging.other"/>
+<option id="gnu.cpp.compiler.option.debugging.prof.754181870" name="Generate prof information (-p)" superClass="gnu.cpp.compiler.option.debugging.prof"/>
+<option id="gnu.cpp.compiler.option.debugging.gprof.1709234284" name="Generate gprof information (-pg)" superClass="gnu.cpp.compiler.option.debugging.gprof"/>
+<option id="gnu.cpp.compiler.option.warnings.syntax.1650148412" name="Check syntax only (-fsyntax-only)" superClass="gnu.cpp.compiler.option.warnings.syntax"/>
+<option id="gnu.cpp.compiler.option.warnings.pedantic.1638546464" name="Pedantic (-pedantic)" superClass="gnu.cpp.compiler.option.warnings.pedantic"/>
+<option id="gnu.cpp.compiler.option.warnings.pedantic.error.187527392" name="Pedantic warnings as errors (-pedantic-errors)" superClass="gnu.cpp.compiler.option.warnings.pedantic.error"/>
+<option id="gnu.cpp.compiler.option.warnings.nowarn.720456379" name="Inhibit all warnings (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn"/>
+<option id="gnu.cpp.compiler.option.warnings.allwarn.268979314" name="All warnings (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn"/>
+<option id="gnu.cpp.compiler.option.warnings.toerrors.89097961" name="Warnings as errors (-Werror)" superClass="gnu.cpp.compiler.option.warnings.toerrors"/>
+<option id="gnu.cpp.compiler.option.other.other.319544353" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -pthread" valueType="string"/>
+<option id="gnu.cpp.compiler.option.other.verbose.695685360" name="Verbose (-v)" superClass="gnu.cpp.compiler.option.other.verbose"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1456944300" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.exe.debug.1034775373" name="GCC C Compiler" superClass="cdt.managedbuild.tool.gnu.c.compiler.exe.debug">
 <option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.exe.debug.option.optimization.level.340754524" name="Optimization Level" superClass="gnu.c.compiler.exe.debug.option.optimization.level" valueType="enumerated"/>
 <option id="gnu.c.compiler.exe.debug.option.debugging.level.302673564" name="Debug Level" superClass="gnu.c.compiler.exe.debug.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+<option id="gnu.c.compiler.option.preprocessor.nostdinc.1998812109" name="Do not search system directories (-nostdinc)" superClass="gnu.c.compiler.option.preprocessor.nostdinc"/>
+<option id="gnu.c.compiler.option.preprocessor.preprocess.237965365" name="Preprocess only (-E)" superClass="gnu.c.compiler.option.preprocessor.preprocess"/>
+<option id="gnu.c.compiler.option.preprocessor.def.symbols.590706047" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols"/>
+<option id="gnu.c.compiler.option.preprocessor.undef.symbol.68516876" name="Undefined symbols (-U)" superClass="gnu.c.compiler.option.preprocessor.undef.symbol"/>
+<option id="gnu.c.compiler.option.include.paths.1747686386" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths"/>
+<option id="gnu.c.compiler.option.optimization.flags.1507110914" name="Other optimization flags" superClass="gnu.c.compiler.option.optimization.flags"/>
+<option id="gnu.c.compiler.option.debugging.other.1113633389" name="Other debugging flags" superClass="gnu.c.compiler.option.debugging.other"/>
+<option id="gnu.c.compiler.option.debugging.gprof.964544571" name="Generate gprof information (-pg)" superClass="gnu.c.compiler.option.debugging.gprof"/>
+<option id="gnu.c.compiler.option.debugging.prof.111514333" name="Generate prof information (-p)" superClass="gnu.c.compiler.option.debugging.prof"/>
+<option id="gnu.c.compiler.option.warnings.syntax.1494622634" name="Check syntax only (-fsyntax-only)" superClass="gnu.c.compiler.option.warnings.syntax"/>
+<option id="gnu.c.compiler.option.warnings.pedantic.1055975328" name="Pedantic (-pedantic)" superClass="gnu.c.compiler.option.warnings.pedantic"/>
+<option id="gnu.c.compiler.option.warnings.pedantic.error.1095648952" name="Pedantic warnings as errors (-pedantic-errors)" superClass="gnu.c.compiler.option.warnings.pedantic.error"/>
+<option id="gnu.c.compiler.option.warnings.nowarn.814174669" name="Inhibit all warnings (-w)" superClass="gnu.c.compiler.option.warnings.nowarn"/>
+<option id="gnu.c.compiler.option.warnings.allwarn.65262075" name="All warnings (-Wall)" superClass="gnu.c.compiler.option.warnings.allwarn"/>
+<option id="gnu.c.compiler.option.warnings.toerrors.307144462" name="Warnings as errors (-Werror)" superClass="gnu.c.compiler.option.warnings.toerrors"/>
+<option id="gnu.c.compiler.option.misc.other.2092165241" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0" valueType="string"/>
+<option id="gnu.c.compiler.option.misc.verbose.616913528" name="Verbose (-v)" superClass="gnu.c.compiler.option.misc.verbose"/>
+<option id="gnu.c.compiler.option.misc.ansi.641737667" name="Support ANSI programs (-ansi)" superClass="gnu.c.compiler.option.misc.ansi"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1721363784" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.1673360792" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug"/>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.1046984397" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
+<option id="gnu.cpp.link.option.nostart.1599854891" name="Do not use standard start files (-nostartfiles)" superClass="gnu.cpp.link.option.nostart"/>
+<option id="gnu.cpp.link.option.nodeflibs.1781420999" name="Do not use default libraries (-nodefaultlibs)" superClass="gnu.cpp.link.option.nodeflibs"/>
+<option id="gnu.cpp.link.option.nostdlibs.1922695254" name="No startup or default libs (-nostdlib)" superClass="gnu.cpp.link.option.nostdlibs"/>
+<option id="gnu.cpp.link.option.strip.2130271861" name="Omit all symbol information (-s)" superClass="gnu.cpp.link.option.strip"/>
+<option id="gnu.cpp.link.option.libs.731886454" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
+<listOptionValue builtIn="false" value="pthread"/>
+</option>
+<option id="gnu.cpp.link.option.paths.646828800" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths"/>
+<option id="gnu.cpp.link.option.flags.2094005727" name="Linker flags" superClass="gnu.cpp.link.option.flags"/>
+<option id="gnu.cpp.link.option.other.587974967" name="Other options (-Xlinker [option])" superClass="gnu.cpp.link.option.other"/>
+<option id="gnu.cpp.link.option.userobjs.735280221" name="Other objects" superClass="gnu.cpp.link.option.userobjs"/>
+<option id="gnu.cpp.link.option.shared.1154529820" name="Shared (-shared)" superClass="gnu.cpp.link.option.shared"/>
+<option id="gnu.cpp.link.option.soname.697425515" name="Shared object name (-Wl,-soname=)" superClass="gnu.cpp.link.option.soname"/>
+<option id="gnu.cpp.link.option.implname.738155684" name="Import Library name (-Wl,--out-implib=)" superClass="gnu.cpp.link.option.implname"/>
+<option id="gnu.cpp.link.option.defname.1578378039" name="DEF file name (-Wl,--output-def=)" superClass="gnu.cpp.link.option.defname"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.1825263724" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>

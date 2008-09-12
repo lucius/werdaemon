@@ -1,6 +1,8 @@
 #include "Cliente.h"
 
 #include <iostream>
+#include "ClientSocket.h"
+#include "SocketException.h"
 
 Cliente::Cliente()
 {
