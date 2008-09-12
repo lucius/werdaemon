@@ -3,7 +3,7 @@
 
 Jogador::Jogador()
 {
-    this->nick = "Jogador"; // Adicionar uma ID randômica em cada jogador.
+    this->nick = "Jogador"; // Adicionar uma ID randï¿½mica em cada jogador.
     std::cout << "(Jogador::Jogador) Inicializando novo jogador..." << std::endl;
 }
 
@@ -24,14 +24,26 @@ Jogador::setNick(std::string _nick)
     this->nick = _nick;
 }
 
+std::string
+Jogador::getIP()
+{
+    return this->ip;
+}
+
+void
+Jogador::setIP(std::string _ip)
+{
+    this->ip = _ip;
+}
+
 void
 Jogador::ganhaTerritorio(Territorio* _territorio)
 {
     if (NULL != _territorio)
     {
-        std::cout << "(Jogador::ganhaTerritorio) '" << _territorio->getNome() << "' é um território válido..." << std::endl;
+        std::cout << "(Jogador::ganhaTerritorio) '" << _territorio->getNome() << "' ï¿½ um territï¿½rio vï¿½lido..." << std::endl;
 
-//      Se outro possuir este territorio, este irá perdê-lo.
+//      Se outro possuir este territorio, este irï¿½ perdï¿½-lo.
         if (NULL != _territorio->getPossuidor())
         {
             if (_territorio->getPossuidor() != this)
@@ -39,7 +51,7 @@ Jogador::ganhaTerritorio(Territorio* _territorio)
                 _territorio->getPossuidor()->perdeTerritorio(_territorio);
             }
 
-//          Ganha o território se ainda não for possuidor do mesmo.
+//          Ganha o territï¿½rio se ainda nï¿½o for possuidor do mesmo.
             this->territorios[_territorio->getNome()] = _territorio;
             std::cout << "(Jogador::ganhaTerritorio) '" << this->nick << "' ganha '" << ((Territorio*) this->territorios[_territorio->getNome()])->getNome() << "'..." << std::endl;
             _territorio->setPossuidor(this);
@@ -53,7 +65,7 @@ Jogador::perdeTerritorio(Territorio* _territorio)
     Territorio*
     territorio = (Territorio*) this->territorios[_territorio->getNome()];
 
-//    Se realmente possuir o território, então apague ele da coleção.
+//    Se realmente possuir o territï¿½rio, entï¿½o apague ele da coleï¿½ï¿½o.
     if (NULL != territorio && NULL != territorio->getPossuidor()
         &&
         territorio->getPossuidor()->getNick() == this->nick)
@@ -69,7 +81,7 @@ Jogador::setExercitos(unsigned short int _exercitos, Territorio* _territorio)
     Territorio*
     territorio = (Territorio*) this->territorios[_territorio->getNome()];
 
-    //    Se realmente possuir o território, então aloque para ele a quantidade de exércitos.
+    //    Se realmente possuir o territï¿½rio, entï¿½o aloque para ele a quantidade de exï¿½rcitos.
     if (0 != territorio && territorio->getPossuidor()->getNick() == this->nick)
     {
         territorio->setExercitos(_exercitos);

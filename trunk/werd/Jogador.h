@@ -23,6 +23,12 @@ Jogador
         void
         setNick(std::string);
 
+        std::string
+        getIP();
+
+        void
+        setIP(std::string);
+        
         void
         ganhaTerritorio(Territorio*);
 
@@ -36,6 +42,9 @@ Jogador
     protected:
         std::string
         nick;
+        
+        std::string
+        ip;
                                      /*   Referência cruzada entre classes   */
         std::map<std::string, void*> /*   std::map<std::string, Territorio*>   */
         territorios;

@@ -1,6 +1,8 @@
 #include "Servidor.h"
 
+#include <iostream>
 #include "ServerSocket.h"
+#include "SocketException.h"
 
 Servidor::Servidor()
 {
