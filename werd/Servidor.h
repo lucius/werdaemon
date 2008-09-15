@@ -5,7 +5,7 @@
 #include "Thread.h"
 
 class
-Servidor : protected Thread
+Servidor : public Thread
 {
     public:
         Servidor();
@@ -44,11 +44,11 @@ Servidor : protected Thread
         distribuiExercitoMultiCast();
 
     protected:
-        static unsigned short int
-        escutaPorConexoes();
+        virtual void*
+        configura();
 
-        static unsigned short int
-        enviaPacote();
+        virtual void*
+        executa(void*);
 
         std::queue<std::string>
         filaPacotes;
