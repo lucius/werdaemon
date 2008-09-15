@@ -153,15 +153,14 @@ Servidor::distribuiExercitoMultiCast()
 
 }
 
-static unsigned short int
-escutaPorConexoes()
+void*
+Servidor::configura()
 {
 
 }
 
-static unsigned short int
-enviaPacote()
+void*
+Servidor::executa(void*)
 {
 
 }
-

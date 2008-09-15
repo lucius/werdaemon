@@ -14,7 +14,7 @@
 
 
 const int MAXHOSTNAME = 200;
-const int MAXCONNECTIONS = 5;
+const int MAXCONNECTIONS = 7;
 const int MAXRECV = 500;
 #ifdef MSG_NOSIGNAL
     #undef MSG_NOSIGNAL

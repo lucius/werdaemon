@@ -61,7 +61,7 @@
 <option id="gnu.c.compiler.option.warnings.nowarn.814174669" name="Inhibit all warnings (-w)" superClass="gnu.c.compiler.option.warnings.nowarn"/>
 <option id="gnu.c.compiler.option.warnings.allwarn.65262075" name="All warnings (-Wall)" superClass="gnu.c.compiler.option.warnings.allwarn"/>
 <option id="gnu.c.compiler.option.warnings.toerrors.307144462" name="Warnings as errors (-Werror)" superClass="gnu.c.compiler.option.warnings.toerrors"/>
-<option id="gnu.c.compiler.option.misc.other.2092165241" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0" valueType="string"/>
+<option id="gnu.c.compiler.option.misc.other.2092165241" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -pthread" valueType="string"/>
 <option id="gnu.c.compiler.option.misc.verbose.616913528" name="Verbose (-v)" superClass="gnu.c.compiler.option.misc.verbose"/>
 <option id="gnu.c.compiler.option.misc.ansi.641737667" name="Support ANSI programs (-ansi)" superClass="gnu.c.compiler.option.misc.ansi"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1721363784" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>

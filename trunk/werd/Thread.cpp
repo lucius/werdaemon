@@ -1,24 +1,31 @@
 #include "Thread.h"
 
+#include <iostream>
 #include <pthread.h>
 #include <signal.h>
 
 Thread::Thread()
 {
-	
+
 }
 
 Thread::~Thread()
 {
-	
+
 }
 
 bool
-Thread::inicia(void* _argumentos = NULL)
+Thread::inicia(void* _argumentos)
 {
 	this->argumentos = _argumentos;
-	
-	return (bool) pthread_create(&(this->id_thread), NULL, Thread::pontoDeAcesso, (void*) this);
+
+	return !((bool) pthread_create(&(this->id_thread), NULL, Thread::pontoDeAcesso, (void*) this));
+}
+
+bool
+Thread::inicia()
+{
+    this->inicia(NULL);
 }
 
 bool
@@ -26,21 +33,18 @@ Thread::para(bool _matar_a_thread = false)
 {
 	if (_matar_a_thread)
 	{
-		return !pthread_kill(this->id_thread, 9);
+		return !((bool) pthread_kill(this->id_thread, 9));
 	}
-	
-	return !pthread_cancel(this->id_thread);
+
+	return !((bool) pthread_cancel(this->id_thread));
 }
 
 bool
 Thread::esperaTermino()
 {
-	int*
-	resultado;
-	
-	pthread_join(this->id_thread, ((void**) &resultado));
-	
-	return !(*resultado);
+	std::cout << "(Thread::esperaTermino) Thread " << this->id_thread << ". Aguardando o término da execução da thread " << this->id_thread << std::endl;
+
+	return !((bool) pthread_join(this->id_thread, NULL));
 }
 
 int
@@ -56,20 +60,9 @@ Thread::pontoDeAcesso(void* _this)
     Thread*
     thread = (Thread*) _this;
 
-//    return ((void*) thread->roda(thread->getArgumentos()));
+    std::cout << "(Thread::pontoDeAcesso) Thread " << thread->getID() << ". Iniciando a execução em thread." << std::endl;
+
     return ((void*) thread->roda(thread->argumentos));
-}
-
-void*
-Thread::configura()
-{
-	return NULL;
-}
-
-void*
-Thread::executa(void* _argumentos)
-{
-	return NULL;
 }
 
 pthread_t
@@ -77,15 +70,3 @@ Thread::getID()
 {
 	return this->id_thread;
 }
-
-//void*
-//Thread::getArgumentos() const
-//{
-//	return this->argumentos;
-//}
-//
-//void
-//Thread::setArgumentos(void* _argumentos)
-//{
-//	this->argumentos = _argumentos;
-//}

@@ -9,7 +9,8 @@ main()
 //    testeRelacaoJogadoresTerritorios();
 //    todosOsTestes();
 //    testaStreaming();
-    testaJogo();
+    testaThread();
+//    testaJogo();
 
 	return 0;
 }

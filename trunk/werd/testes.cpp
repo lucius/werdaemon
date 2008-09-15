@@ -8,7 +8,7 @@
 #include "TabelaStatus.h"
 #include "TuplaStatus.h"
 #include "Thread.h"
-
+#include "Servidor.h"
 
 #include "Wer.h"
 
@@ -157,46 +157,57 @@ testeRelacaoJogadoresTerritorios()
 void
 testaThread()
 {
-	// que saco... mover essa classe de testes para um arquivo separado!
-//	class
-//	ThreadTeste : public Thread
-//	{
-//		public:
-//			ThreadTeste()
-//			{
-//				
-//			}
-//			
-//			~ThreadTeste()
-//			{
-//				
-//			}
-//			
-//		protected:
-//			void*
-//			executa()
-//			{
-//				std::cout << "(testaThread) Thread numero: "<< this->getID() << " em execucao." << std::endl;
-//				return ((void*) true);
-//			}
-//	};
-//	
-//	ThreadTeste
-//	t1, t2, t3;
-//	
-//	
-//	t1.inicia();
-//	t2.inicia();
-//	t3.inicia();
-//
-//	t1.esperaTermino();
-//	t2.esperaTermino();
-//	t3.esperaTermino();
+	class
+	ThreadTeste : public Thread
+	{
+		public:
+			ThreadTeste()
+			{
+
+			}
+
+			~ThreadTeste()
+			{
+
+			}
+
+		protected:
+		    void*
+		    configura()
+		    {
+		        return NULL;
+		    }
+
+			void*
+			executa(void* _argumentos)
+			{
+			    for (unsigned short int i = 0; i < 500; ++i)
+			    {
+			        std::cout << "(ThreadTeste::executa) Thread " << this->getID() << ". Iteração " << i << "." << std::endl;
+			    }
+				return ((void*) true);
+			}
+	};
+
+	ThreadTeste
+	t1, t2, t3;
+
+	t1.inicia();
+	t2.inicia();
+	t3.inicia();
+
+	t1.esperaTermino();
+	t2.esperaTermino();
+	t3.esperaTermino();
 }
 
 void
 testaServidorMultiThread()
 {
+    Servidor
+    servidor;
+
+    servidor.inicia();
 
 }
 
