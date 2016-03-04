@@ -1,0 +1,1 @@
+daemon que processa o estado do jogo wer, desenvolvido para a disciplina de redes (uel - 2008)
